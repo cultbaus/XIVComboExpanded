@@ -132,7 +132,7 @@ internal static class PCT
                 return PCT.RainbowDrip;
             }
 
-            if (actionID == PCT.BlizzardCyan)
+            if (actionID == PCT.FireRed || actionID == PCT.BlizzardCyan)
             {
                 if (IsEnabled(CustomComboPreset.PictomancerStarPrismAutoCombo))
                 {
@@ -164,7 +164,7 @@ internal static class PCT
                         && (gauge.PalleteGauge >= 50 || HasEffect(PCT.Buffs.SubstractivePaletteReady)))
                         return PCT.SubstractivePalette;
 
-                    if (HasEffect(PCT.Buffs.Chroma3Ready) && (gauge.PalleteGauge == 100))
+                    if (HasEffect(PCT.Buffs.SubstractivePaletteReady) || (HasEffect(PCT.Buffs.Chroma3Ready) && (gauge.PalleteGauge == 100)))
                         return PCT.SubstractivePalette;
                 }
 
