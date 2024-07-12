@@ -120,30 +120,27 @@ public enum CustomComboPreset
     // ====================================================================================
     #region ASTROLOGIAN
 
-    //[CustomComboInfo("Malefic to Draw", "Replace Malefic with Draw when no card is drawn and a card is available.", AST.JobID)]
-    //AstrologianMaleficDrawFeature = 3309,
+    [CustomComboInfo("Malefic to Astral/Umbral Draw", "Replace Malefic with Astral/Umbral Draw when no card is drawn and you can draw.", AST.JobID)]
+    AstrologianMaleficDrawFeature = 3320,
 
-    //[CustomComboInfo("Gravity to Draw", "Replace Gravity with Draw when no card is drawn and a card is available.", AST.JobID)]
-    //AstrologianGravityDrawFeature = 3310,
+    [ParentCombo(AstrologianMaleficDrawFeature)]
+    [CustomComboInfo("Play 1 override", "Replace Malefic with Astral/Umbral when Play I isn't drawn yet, even if there are remaining other cards.", AST.JobID)]
+    AstrologianDraw1Feature = 3321,
 
-    //[CustomComboInfo("Play to Draw", "Replace Play with Draw when no card is drawn and a card is available.", AST.JobID)]
-    //AstrologianPlayDrawFeature = 3301,
+    [CustomComboInfo("Gravity to Astral/Umbral Draw", "Replace Gravity with with Astral/Umbral Draw when no card is drawn and you can draw..", AST.JobID)]
+    AstrologianGravityDrawFeature = 3322,
 
-    //[ParentCombo(AstrologianPlayDrawFeature)]
-    //[CustomComboInfo("Play to Draw to Astrodyne", "Replace Play with Astrodyne when seals are full and Draw is on cooldown or a card is drawn.", AST.JobID)]
-    //AstrologianPlayDrawAstrodyneFeature = 3307,
+    [CustomComboInfo("Play to Astral/Umbral Draw", "Replace Play I / II / III & Minor Arcana with with Astral/Umbral Draw when no card is drawn and you can draw.", AST.JobID)]
+    AstrologianPlayDrawFeature = 3323,
 
-    //[CustomComboInfo("Play to Redraw", "Replace Play with Redraw if a card is drawn and would grant a seal you already have.", AST.JobID)]
-    //AstrologianPlayRedrawFeature = 3311,
+    [CustomComboInfo("Benefic II/Malefic to Arcana", "Replace Helios by Lady of Crowns when drawn.", AST.JobID)]
+    AstrologianHeliosArcanaFeature = 3324,
 
-    //[CustomComboInfo("Play to Astrodyne", "Replace Play with Astrodyne when seals are full.", AST.JobID)]
-    //AstrologianPlayAstrodyneFeature = 3304,
+    [CustomComboInfo("Malefic to Arcana", "Replace Malefic & Gravity by Lord of Crowns when drawn.", AST.JobID)]
+    AstrologianMaleficArcanaFeature = 3325,
 
-    //[CustomComboInfo("Draw Lockout", "Replace Draw (not Play to Draw) with Malefic when a card is drawn.", AST.JobID)]
-    //AstrologianDrawLockoutFeature = 3306,
-
-    [CustomComboInfo("Benefic 2 to Benefic Level Sync", "Replace Benefic 2 with Benefic when below level 26 in synced content.", AST.JobID)]
-    AstrologianBeneficSyncFeature = 3303,
+    [CustomComboInfo("Benefic II to Benefic Level Sync", "Replace Benefic 2 with Benefic when below level 26 in synced content.", AST.JobID)]
+    AstrologianBeneficSyncFeature = 3326,
 
     #endregion
     // ====================================================================================

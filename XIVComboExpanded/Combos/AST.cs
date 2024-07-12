@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
 
@@ -15,6 +16,8 @@ internal static class AST
         Benefic = 3594,
         Malefic = 3596,
         Malefic2 = 3598,
+        Helios = 3600,
+        AspectedHelios = 3601,
         Ascend = 3603,
         Lightspeed = 3606,
         Benefic2 = 3610,
@@ -42,7 +45,14 @@ internal static class AST
         FallMalefic = 25871,
         Gravity2 = 25872,
         Exaltation = 25873,
-        Macrocosmos = 25874;
+        Macrocosmos = 25874,
+        UmbralDraw = 37018,
+        AstralDraw = 37017,
+        Play1 = 37019,
+        Play2 = 37020,
+        Play3 = 37021,
+        MinorArcanaDT = 37022,
+        CombinedHelios = 37030;
 
     public static class Buffs
     {
@@ -61,7 +71,7 @@ internal static class AST
         public const byte
             Ascend = 12,
             Benefic2 = 26,
-            Draw = 30,
+            AstralDraw = 30,
             Redraw = 40,
             Astrodyne = 50,
             MinorArcana = 70,
@@ -69,127 +79,76 @@ internal static class AST
     }
 }
 
-//internal class AstrologianMalefic : CustomCombo
-//{
-//    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianMaleficDrawFeature;
+internal class AstrologianMalefic : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianMaleficDrawFeature;
 
-//    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-//    {
-//        if (actionID == AST.Malefic || actionID == AST.Malefic2 || actionID == AST.Malefic3 || actionID == AST.Malefic4 || actionID == AST.FallMalefic)
-//        {
-//            var gauge = GetJobGauge<ASTGauge>();
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID == AST.Malefic || actionID == AST.Malefic2 || actionID == AST.Malefic3 || actionID == AST.Malefic4 || actionID == AST.FallMalefic)
+        {
+            var gauge = GetJobGauge<ASTGauge>();
 
-//            if (level >= AST.Levels.Draw && gauge.DrawnCard == CardType.NONE && HasCharges(AST.Draw))
-//                return AST.Draw;
-//        }
+            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD)
+                return OriginalHook(AST.MinorArcanaDT);
 
-//        return actionID;
-//    }
-//}
+            if(IsEnabled(CustomComboPreset.AstrologianDraw1Feature) && IsOriginal(AST.Play1) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+                return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-//internal class AstrologianGravity : CustomCombo
-//{
-//    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianGravityDrawFeature;
+            if (IsOriginal(AST.Play1) && IsOriginal(AST.Play2) && IsOriginal(AST.Play3) && IsOriginal(AST.MinorArcanaDT) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+                return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
+        }
 
-//    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-//    {
-//        if (actionID == AST.Gravity || actionID == AST.Gravity2)
-//        {
-//            var gauge = GetJobGauge<ASTGauge>();
+        return actionID;
+    }
+}
 
-//            if (level >= AST.Levels.Draw && gauge.DrawnCard == CardType.NONE && HasCharges(AST.Draw))
-//                return AST.Draw;
-//        }
+internal class AstrologianGravity : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianGravityDrawFeature;
 
-//        return actionID;
-//    }
-//}
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID == AST.Gravity || actionID == AST.Gravity2)
+        {
+            var gauge = GetJobGauge<ASTGauge>();
 
-//internal class AstrologianPlay : CustomCombo
-//{
-//    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstAny;
+            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD)
+                return OriginalHook(AST.MinorArcanaDT);
 
-//    private Dictionary<CardType, SealType> CardSeals { get; } = new Dictionary<CardType, SealType>
-//    {
-//        { CardType.BALANCE, SealType.SUN },
-//        { CardType.BOLE, SealType.SUN },
-//        { CardType.ARROW, SealType.MOON },
-//        { CardType.EWER, SealType.MOON },
-//        { CardType.SPEAR, SealType.CELESTIAL },
-//        { CardType.SPIRE, SealType.CELESTIAL },
-//    };
+            if (IsOriginal(AST.Play1) && IsOriginal(AST.Play2) && IsOriginal(AST.Play3) && IsOriginal(AST.MinorArcanaDT) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+                return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
+        }
 
-//    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-//    {
-//        if (actionID == AST.Play)
-//        {
-//            var gauge = GetJobGauge<ASTGauge>();
+        return actionID;
+    }
+}
 
-//            if (IsEnabled(CustomComboPreset.AstrologianPlayAstrodyneFeature))
-//            {
-//                if (level >= AST.Levels.Astrodyne && !gauge.ContainsSeal(SealType.NONE))
-//                    return AST.Astrodyne;
-//            }
+internal class AstrologianPlay : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianPlayDrawFeature;
 
-//            if (IsEnabled(CustomComboPreset.AstrologianPlayDrawFeature))
-//            {
-//                if (IsEnabled(CustomComboPreset.AstrologianPlayDrawAstrodyneFeature))
-//                {
-//                    var draw = GetCooldown(AST.Draw);
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        var gauge = GetJobGauge<ASTGauge>();
 
-//                    if (level >= AST.Levels.Astrodyne && !gauge.ContainsSeal(SealType.NONE) && (draw.RemainingCharges == 0 || gauge.DrawnCard != CardType.NONE))
-//                        return AST.Astrodyne;
-//                }
+        if (OriginalHook(actionID) == AST.Play1 && IsOriginal(AST.Play1))
+            return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-//                if (level >= AST.Levels.Draw && gauge.DrawnCard == CardType.NONE)
-//                    return AST.Draw;
-//            }
+        if (OriginalHook(actionID) == AST.Play2 && IsOriginal(AST.Play2))
+            return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-//            if (IsEnabled(CustomComboPreset.AstrologianPlayRedrawFeature))
-//            {
-//                // Use redraw if and only if the player has has a card drawn and the drawn card is a seal type the
-//                // player already has.  Note that there is no check here to see if the player already has 3 seals.
-//                // While players should never use Draw at 3 seals, if the player has not enabled the Play to Astrodyne
-//                // or Play to Draw to Astrodyne feature, we should still handle the Redraw check as normal, since the
-//                // ONLY reason to use Play at 3 seals is to try to fish for the 3-different-seals Astrodyne, even though
-//                // that's an unmitigated DPS loss over using Astrodyne at only 1 or 2 seals.
+        if (OriginalHook(actionID) == AST.Play3 && IsOriginal(AST.Play3))
+            return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-//                if (level >= AST.Levels.Redraw && gauge.DrawnCard != CardType.NONE && HasEffect(AST.Buffs.ClarifyingDraw))
-//                {
-//                    var cardSeal = this.CardSeals.GetValueOrDefault(gauge.DrawnCard, SealType.NONE);
+        if (OriginalHook(actionID) == AST.MinorArcanaDT && IsOriginal(AST.MinorArcanaDT))
+            return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-//                    if (gauge.ContainsSeal(cardSeal))
-//                        return AST.Redraw;
-//                }
-//            }
-//        }
-
-//        return actionID;
-//    }
-//}
-
-//internal class AstrologianDraw : CustomCombo
-//{
-//    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianDrawLockoutFeature;
-
-//    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-//    {
-//        if (actionID == AST.Draw)
-//        {
-//            var gauge = GetJobGauge<ASTGauge>();
-
-//            if (gauge.DrawnCard != CardType.NONE)
-//                // Malefic4
-//                return OriginalHook(AST.Malefic);
-//        }
-
-//        return actionID;
-//    }
-#pragma warning disable SA1005 // Single line comments should begin with single space
-                              //}
+        return actionID;
+    }
+}
 
 internal class AstrologianBenefic2 : CustomCombo
-#pragma warning restore SA1005 // Single line comments should begin with single space
 {
     protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianBeneficSyncFeature;
 
@@ -199,6 +158,24 @@ internal class AstrologianBenefic2 : CustomCombo
         {
             if (level < AST.Levels.Benefic2)
                 return AST.Benefic;
+        }
+
+        return actionID;
+    }
+}
+
+internal class AstrologianArcana : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstAny;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        var gauge = GetJobGauge<ASTGauge>();
+
+        if (actionID == AST.Helios)
+        {
+            if (IsEnabled(CustomComboPreset.AstrologianHeliosArcanaFeature) && gauge.DrawnCrownCard == CardType.LADY)
+                return OriginalHook(AST.MinorArcanaDT);
         }
 
         return actionID;
