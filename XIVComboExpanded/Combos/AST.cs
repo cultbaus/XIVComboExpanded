@@ -86,13 +86,17 @@ internal class AstrologianMalefic : CustomCombo
         {
             var gauge = GetJobGauge<ASTGauge>();
 
-            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD)
+            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD && level >= AST.Levels.MinorArcana)
                 return OriginalHook(AST.MinorArcanaDT);
 
             if (IsEnabled(CustomComboPreset.AstrologianDraw1Feature) && IsOriginal(AST.Play1) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-            if (IsOriginal(AST.Play1) && IsOriginal(AST.Play2) && IsOriginal(AST.Play3) && IsOriginal(AST.MinorArcanaDT) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+            if (IsOriginal(AST.Play1)
+                && IsOriginal(AST.Play2)
+                && IsOriginal(AST.Play3)
+                && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
+                && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
         }
 
@@ -110,10 +114,14 @@ internal class AstrologianGravity : CustomCombo
         {
             var gauge = GetJobGauge<ASTGauge>();
 
-            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD)
+            if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD && level >= AST.Levels.MinorArcana)
                 return OriginalHook(AST.MinorArcanaDT);
 
-            if (IsOriginal(AST.Play1) && IsOriginal(AST.Play2) && IsOriginal(AST.Play3) && IsOriginal(AST.MinorArcanaDT) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+            if (IsOriginal(AST.Play1)
+                && IsOriginal(AST.Play2)
+                && IsOriginal(AST.Play3)
+                && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
+                && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
         }
 
@@ -171,7 +179,7 @@ internal class AstrologianArcana : CustomCombo
 
         if (actionID == AST.Helios)
         {
-            if (IsEnabled(CustomComboPreset.AstrologianHeliosArcanaFeature) && gauge.DrawnCrownCard == CardType.LADY)
+            if (IsEnabled(CustomComboPreset.AstrologianHeliosArcanaFeature) && gauge.DrawnCrownCard == CardType.LADY && level >= AST.Levels.MinorArcana)
                 return OriginalHook(AST.MinorArcanaDT);
         }
 
