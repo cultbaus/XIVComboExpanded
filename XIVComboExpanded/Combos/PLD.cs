@@ -155,7 +155,7 @@ internal class PaladinRoyalAuthority : PaladinCombo
                     if (level >= PLD.Levels.Atonement && IsEnabled(CustomComboPreset.PaladinRoyalAuthorityAtonementComboFeature))
                     {
                         // These use a fixed 2.5s for the GCD, because I don't know how to pull the actual GCD length.
-                        // Technically, this can fail to use the correct ability if the GCD is less than 2.5s and the 
+                        // Technically, this can fail to use the correct ability if the GCD is less than 2.5s and the
                         // remaining duration of FoF is just barely enough, but since latency is a thing,
                         // it's probably good to have this type of buffer anyway.
                         if (HasEffect(PLD.Buffs.SepulchreReady) && inMeleeRange)
@@ -183,8 +183,8 @@ internal class PaladinRoyalAuthority : PaladinCombo
                 if (supplication != null && inMeleeRange && (lastComboMove == PLD.RiotBlade || supplication.RemainingTime <= 5))
                     return OriginalHook(PLD.Atonement);
 
-                var AtonementReady = FindEffect(PLD.Buffs.AtonementReady);
-                if (AtonementReady != null && inMeleeRange && (lastComboMove == PLD.RiotBlade || AtonementReady.RemainingTime <= 7.5))
+                var atonementReady = FindEffect(PLD.Buffs.AtonementReady);
+                if (atonementReady != null && inMeleeRange && (lastComboMove == PLD.RiotBlade || atonementReady.RemainingTime <= 7.5))
                     return OriginalHook(PLD.Atonement);
             }
 
@@ -329,7 +329,7 @@ internal class PaladinRequiescat : PaladinCombo
                 if (OriginalHook(PLD.FightOrFlight) == PLD.GoringBlade && GetCooldown(PLD.Requiescat).CooldownRemaining > 5 && InMeleeRange())
                     return PLD.GoringBlade;
             }
-            
+
             if (IsEnabled(CustomComboPreset.PaladinRequiescatCombo))
             {
                 if (level >= PLD.Levels.Confiteor)

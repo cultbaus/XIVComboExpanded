@@ -281,6 +281,7 @@ internal abstract partial class CustomCombo
     /// <returns>A value indicating whether the player has a pet present.</returns>
     protected static bool HasPetPresent()
         => Service.BuddyList.PetBuddy != null;
+
     /// <summary>
     /// Find if the player has a companion present.
     /// </summary>

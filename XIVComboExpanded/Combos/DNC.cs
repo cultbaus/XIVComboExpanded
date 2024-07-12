@@ -168,7 +168,6 @@ internal class DancerStandardStepTechnicalStep : CustomCombo
         {
             var gauge = GetJobGauge<DNCGauge>();
 
-
             if (IsEnabled(CustomComboPreset.DancerPartnerFeature) && level >= DNC.Levels.ClosedPosition && (!HasEffect(DNC.Buffs.ClosedPosition)))
             {
                 if (IsEnabled(CustomComboPreset.DancerChocoboPartnerFeature) && HasCompanionPresent())
@@ -194,7 +193,6 @@ internal class DancerStandardStepTechnicalStep : CustomCombo
         if (actionID == DNC.TechnicalStep)
         {
             var gauge = GetJobGauge<DNCGauge>();
-
 
             if (IsEnabled(CustomComboPreset.DancerPartnerFeature) && level >= DNC.Levels.ClosedPosition && (!HasEffect(DNC.Buffs.ClosedPosition)))
             {

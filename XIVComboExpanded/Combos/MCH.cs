@@ -251,7 +251,6 @@ internal class MachinistDrillAirAnchorChainsaw : CustomCombo
     {
         if (actionID == MCH.HotShot || actionID == MCH.AirAnchor || actionID == MCH.Drill || actionID == MCH.Chainsaw || actionID == MCH.Excavator)
         {
-
             if (level >= MCH.Levels.Excavator && HasEffect(MCH.Buffs.ExcavatorReady))
                 return MCH.Excavator;
 

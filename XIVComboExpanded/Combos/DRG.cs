@@ -231,35 +231,6 @@ internal class DragoonStardiver : CustomCombo
     }
 }
 
-//internal class DragoonDives : CustomCombo
-//{
-//    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DragoonDiveFeature;
-
-//    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
-//    {
-//        if (actionID == DRG.SpineshatterDive || actionID == DRG.DragonfireDive || actionID == DRG.Stardiver)
-//        {
-//            if (level >= DRG.Levels.Stardiver)
-//            {
-//                var gauge = GetJobGauge<DRGGauge>();
-
-//                if (gauge.IsLOTDActive)
-//                    return CalcBestAction(actionID, DRG.SpineshatterDive, DRG.DragonfireDive, DRG.Stardiver);
-
-//                return CalcBestAction(actionID, DRG.SpineshatterDive, DRG.DragonfireDive);
-//            }
-
-//            if (level >= DRG.Levels.DragonfireDive)
-//                return CalcBestAction(actionID, DRG.SpineshatterDive, DRG.DragonfireDive);
-
-//            if (level >= DRG.Levels.SpineshatterDive)
-//                return DRG.SpineshatterDive;
-//        }
-
-//        return actionID;
-//    }
-//}
-
 internal class DragoonGierskogul : CustomCombo
 {
     protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.DragoonGeirskogulWyrmwindFeature;

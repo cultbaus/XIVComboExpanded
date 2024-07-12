@@ -137,8 +137,6 @@ internal class DarkStalwartSoul : CustomCombo
         {
             var gauge = GetJobGauge<DRKGauge>();
 
-
-
             if (IsEnabled(CustomComboPreset.DarkDeliriumFeature))
             {
                 if (

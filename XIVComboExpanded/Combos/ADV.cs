@@ -65,6 +65,7 @@ internal class SwiftRaiseFeature : CustomCombo
         return actionID;
     }
 }
+
 internal class VariantRaiseFeature : CustomCombo
 {
     protected internal override CustomComboPreset Preset => CustomComboPreset.AdvVariantRaiseFeature;
@@ -131,7 +132,6 @@ internal class StanceProvokeFeature : CustomCombo
         return actionID;
     }
 }
-
 
 internal class ShirkStanceFeature : CustomCombo
 {

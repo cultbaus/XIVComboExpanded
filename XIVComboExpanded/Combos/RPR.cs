@@ -172,8 +172,10 @@ internal class ReaperSlice : CustomCombo
             }
 
             if (IsEnabled(CustomComboPreset.ReaperSlicePerfectioFeature))
+            {
                 if (level >= RPR.Levels.Perfectio && HasEffect(RPR.Buffs.PerfectioParata))
                     return RPR.Perfectio;
+            }
 
             if (IsEnabled(CustomComboPreset.ReaperSliceCombo))
             {
@@ -247,8 +249,10 @@ internal class ReaperScythe : CustomCombo
             }
 
             if (IsEnabled(CustomComboPreset.ReaperScythePerfectioFeature))
+            {
                 if (level >= RPR.Levels.Perfectio && HasEffect(RPR.Buffs.PerfectioParata))
                     return RPR.Perfectio;
+            }
 
             if (IsEnabled(CustomComboPreset.ReaperScytheCombo))
             {
@@ -611,8 +615,10 @@ internal class ReaperHarpe : CustomCombo
             }
 
             if (IsEnabled(CustomComboPreset.ReaperHarpePerfectioFeature))
+            {
                 if (level >= RPR.Levels.Perfectio && HasEffect(RPR.Buffs.PerfectioParata))
                     return RPR.Perfectio;
+            }
 
             if (IsEnabled(CustomComboPreset.ReaperHarpeHarvestMoonFeature))
             {

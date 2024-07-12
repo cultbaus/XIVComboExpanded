@@ -283,7 +283,6 @@ internal class RedMageVerstoneVerfire : CustomCombo
                 }
             }
 
-
             if (IsEnabled(CustomComboPreset.RedMageVerprocPlusFeature))
             {
                 if (!IsEnabled(CustomComboPreset.RedMageGrandImpactDeprioritize) && HasEffect(RDM.Buffs.GrandImpactReady))

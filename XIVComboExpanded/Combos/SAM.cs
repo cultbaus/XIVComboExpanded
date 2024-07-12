@@ -32,7 +32,7 @@ internal static class SAM
         HissatsuSenei = 16481,
         HissatsuGuren = 7496,
         Ikishoten = 16482,
-        //Shoha2 = 25779,
+        // Shoha2 = 25779,
         OgiNamikiri = 25781,
         KaeshiNamikiri = 25782,
         Zanshin = 36964;
@@ -70,7 +70,7 @@ internal static class SAM
             HissatsuSenei = 72,
             TsubameGaeshi = 76,
             Shoha = 80,
-            //Shoha2 = 82,
+            // Shoha2 = 82,
             Hyosetsu = 86,
             Fuko = 86,
             OgiNamikiri = 90,
@@ -91,7 +91,7 @@ internal class SamuraiYukikaze : CustomCombo
 
             if (comboTime > 0)
             {
-                if ((lastComboMove == SAM.Hakaze || lastComboMove == SAM.Gyofu ) && level >= SAM.Levels.Yukikaze)
+                if ((lastComboMove == SAM.Hakaze || lastComboMove == SAM.Gyofu) && level >= SAM.Levels.Yukikaze)
                     return SAM.Yukikaze;
             }
 

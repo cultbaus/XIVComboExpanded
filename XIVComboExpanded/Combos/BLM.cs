@@ -120,8 +120,11 @@ internal class BlackFireBlizzard4 : CustomCombo
                     if (IsEnabled(CustomComboPreset.BlackEnochianDespairFeature))
                     {
                         if (IsEnabled(CustomComboPreset.BlackEnochianDespairFlareStarFeature))
+                        {
                             if (level >= BLM.Levels.FlareStar && gauge.AstralSoulStacks >= 6 && LocalPlayer?.CurrentMp <= 0)
                                 return BLM.FlareStar;
+                        }
+
                         if (level >= BLM.Levels.Despair && LocalPlayer?.CurrentMp < 2400)
                             return BLM.Despair;
                     }
@@ -330,7 +333,7 @@ internal class BlackFire2 : CustomCombo
                     return BLM.Flare;
                 }
 
-                // At level 50, Fire II is used until under 3800 mana (the combined cost of Fire II and Flare), 
+                // At level 50, Fire II is used until under 3800 mana (the combined cost of Fire II and Flare),
                 // and then Flare is cast once.
                 // At level 58, Fire II is used until 1 Umbral Heart is remaining, and then Flare is cast twice.
                 if (LocalPlayer?.CurrentMp < BLM.MpCosts.Fire2 + BLM.MpCosts.Flare || gauge.UmbralHearts == 1)
