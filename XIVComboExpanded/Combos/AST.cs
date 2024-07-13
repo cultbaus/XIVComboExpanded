@@ -89,14 +89,14 @@ internal class AstrologianMalefic : CustomCombo
             if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD && level >= AST.Levels.MinorArcana)
                 return OriginalHook(AST.MinorArcanaDT);
 
-            if (IsEnabled(CustomComboPreset.AstrologianDraw1Feature) && IsOriginal(AST.Play1) && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+            if (IsEnabled(CustomComboPreset.AstrologianDraw1Feature) && IsOriginal(AST.Play1) && (IsCooldownUsable(AST.AstralDraw) || IsCooldownUsable(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
             if (IsOriginal(AST.Play1)
                 && IsOriginal(AST.Play2)
                 && IsOriginal(AST.Play3)
                 && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
-                && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+                && (IsCooldownUsable(AST.AstralDraw) || IsCooldownUsable(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
         }
 
@@ -121,7 +121,7 @@ internal class AstrologianGravity : CustomCombo
                 && IsOriginal(AST.Play2)
                 && IsOriginal(AST.Play3)
                 && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
-                && (IsOffCooldown(AST.AstralDraw) || IsOffCooldown(AST.UmbralDraw)))
+                && (IsCooldownUsable(AST.AstralDraw) || IsCooldownUsable(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
         }
 

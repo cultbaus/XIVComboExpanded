@@ -326,7 +326,7 @@ internal class DreadfangsDreadwinderFeature : CustomCombo
         if (actionID == VPR.DreadFangs)
         {
             // I think in this case if we're not in a combo (and something else isn't replacing Dread Fangs), we can just replace if we have charges
-            if (level >= VPR.Levels.Dreadwinder && IsOriginal(VPR.DreadFangs) && HasCharges(VPR.Dreadwinder) && IsOriginal(VPR.SerpentsTail)) // Add the check for Serpent's Tail to avoid stepping on other combo
+            if (level >= VPR.Levels.Dreadwinder && IsOriginal(VPR.DreadFangs) && IsCooldownUsable(VPR.Dreadwinder) && IsOriginal(VPR.SerpentsTail)) // Add the check for Serpent's Tail to avoid stepping on other combo
                 return VPR.Dreadwinder;
         }
 
@@ -342,7 +342,7 @@ internal class PitOfDreadFeature : CustomCombo
     {
         if (actionID == VPR.DreadMaw)
         {
-            if (level >= VPR.Levels.PitOfDread && IsOriginal(VPR.DreadMaw) && HasCharges(VPR.PitOfDread) && IsOriginal(VPR.SerpentsTail)) // Add the check for Serpent's Tail to avoid stepping on other combo
+            if (level >= VPR.Levels.PitOfDread && IsOriginal(VPR.DreadMaw) && IsCooldownUsable(VPR.PitOfDread) && IsOriginal(VPR.SerpentsTail)) // Add the check for Serpent's Tail to avoid stepping on other combo
                 return VPR.PitOfDread;
         }
 

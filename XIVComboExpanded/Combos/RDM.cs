@@ -386,14 +386,14 @@ internal class RedMageAcceleration : CustomCombo
                 {
                     if (IsEnabled(CustomComboPreset.RedMageAccelerationSwiftcastOption))
                     {
-                        if (IsOffCooldown(RDM.Acceleration) && IsOffCooldown(ADV.Swiftcast))
+                        if (IsCooldownUsable(RDM.Acceleration) && IsCooldownUsable(ADV.Swiftcast))
                             return ADV.Swiftcast;
                     }
 
-                    if (IsOffCooldown(RDM.Acceleration))
+                    if (IsCooldownUsable(RDM.Acceleration))
                         return RDM.Acceleration;
 
-                    if (IsOffCooldown(ADV.Swiftcast))
+                    if (IsCooldownUsable(ADV.Swiftcast))
                         return ADV.Swiftcast;
                 }
 
@@ -416,7 +416,7 @@ internal class RedMageEmbolden : CustomCombo
     {
         if (actionID == RDM.Embolden)
         {
-            if (level >= RDM.Levels.Manafication && IsOffCooldown(RDM.Manafication) && !IsOffCooldown(RDM.Embolden))
+            if (level >= RDM.Levels.Manafication && IsCooldownUsable(RDM.Manafication) && !IsCooldownUsable(RDM.Embolden))
                 return RDM.Manafication;
         }
 

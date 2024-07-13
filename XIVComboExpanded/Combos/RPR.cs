@@ -361,7 +361,7 @@ internal class ReaperSoulSlice : CustomCombo
             {
                 if (IsEnabled(CustomComboPreset.ReaperBloodStalkGluttonyFeature))
                 {
-                    if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && gauge.EnshroudedTimeRemaining == 0 && IsOffCooldown(RPR.Gluttony))
+                    if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && gauge.EnshroudedTimeRemaining == 0 && IsCooldownUsable(RPR.Gluttony))
                         return RPR.Gluttony;
                 }
 
@@ -389,7 +389,7 @@ internal class ReaperSoulScythe : CustomCombo
             {
                 if (IsEnabled(CustomComboPreset.ReaperGrimSwatheGluttonyFeature))
                 {
-                    if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && gauge.EnshroudedTimeRemaining == 0 && IsOffCooldown(RPR.Gluttony))
+                    if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && gauge.EnshroudedTimeRemaining == 0 && IsCooldownUsable(RPR.Gluttony))
                         return RPR.Gluttony;
                 }
 
@@ -414,7 +414,7 @@ internal class ReaperBloodStalk : CustomCombo
 
             if (IsEnabled(CustomComboPreset.ReaperBloodStalkGluttonyFeature))
             {
-                if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && IsOffCooldown(RPR.Gluttony) && gauge.EnshroudedTimeRemaining == 0)
+                if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && IsCooldownUsable(RPR.Gluttony) && gauge.EnshroudedTimeRemaining == 0)
                     return RPR.Gluttony;
             }
 
@@ -441,7 +441,7 @@ internal class ReaperGrimSwathe : CustomCombo
 
             if (IsEnabled(CustomComboPreset.ReaperGrimSwatheGluttonyFeature))
             {
-                if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && IsOffCooldown(RPR.Gluttony) && gauge.EnshroudedTimeRemaining == 0)
+                if (level >= RPR.Levels.Gluttony && gauge.Soul >= 50 && IsCooldownUsable(RPR.Gluttony) && gauge.EnshroudedTimeRemaining == 0)
                     return RPR.Gluttony;
             }
 

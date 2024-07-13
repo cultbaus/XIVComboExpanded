@@ -166,7 +166,7 @@ internal class GunbreakerBurstStrikeFatedCircle : CustomCombo
 
             if (IsEnabled(CustomComboPreset.GunbreakerDoubleDownFeature))
             {
-                if (level >= GNB.Levels.DoubleDown && gauge.Ammo >= 2 && IsOffCooldown(GNB.DoubleDown))
+                if (level >= GNB.Levels.DoubleDown && gauge.Ammo >= 2 && IsCooldownUsable(GNB.DoubleDown))
                     return GNB.DoubleDown;
             }
 
@@ -245,7 +245,7 @@ internal class GunbreakerNoMercy : CustomCombo
             {
                 if (level >= GNB.Levels.NoMercy && HasEffect(GNB.Buffs.NoMercy))
                 {
-                    if (level >= GNB.Levels.DoubleDown && gauge.Ammo >= 2 && IsOffCooldown(GNB.DoubleDown))
+                    if (level >= GNB.Levels.DoubleDown && gauge.Ammo >= 2 && IsCooldownUsable(GNB.DoubleDown))
                         return GNB.DoubleDown;
                 }
             }

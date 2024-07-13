@@ -23,113 +23,31 @@ internal struct CooldownData
     private readonly float cooldownTotal;
 
     /// <summary>
-    /// Gets the base cooldown time in seconds.
-    /// </summary>
-    public float BaseCooldown => ActionManager.GetAdjustedRecastTime(ActionType.Action, this.ActionID) / 1000f;
-
-    /// <summary>
-    /// Gets the total cooldown calculated from AdjustedRecastTime in seconds.
-    /// </summary>
-    public float TotalBaseCooldown
-    {
-        get
-        {
-            var (cur, max) = Service.ComboCache.GetMaxCharges(this.ActionID);
-
-            // Rebase to the current charge count
-            var total = this.BaseCooldown / max * cur;
-
-            return total * cur;
-        }
-    }
-
-    /// <summary>
-    /// Gets the total cooldown time.
-    /// </summary>
-    public float CooldownTotal
-    {
-        get
-        {
-            if (this.cooldownTotal == 0)
-                return 0;
-
-            var (cur, max) = Service.ComboCache.GetMaxCharges(this.ActionID);
-            if (cur == max)
-                return this.cooldownTotal;
-
-            // Rebase to the current charge count
-            var total = this.cooldownTotal / max * cur;
-
-            if (this.cooldownElapsed > total)
-                return 0;
-
-            return total;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether the action is on cooldown.
-    /// </summary>
-    public bool IsCooldown
-    {
-        get
-        {
-            return this.cooldownElapsed > 0 && this.cooldownElapsed < this.BaseCooldown;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether all charges are capped.
-    /// </summary>
-    public bool IsCapped
-    {
-        get
-        {
-            return this.cooldownElapsed == 0;
-        }
-    }
-
-    /// <summary>
     /// Gets the action ID on cooldown.
     /// </summary>
     public uint ActionID => this.actionID;
 
     /// <summary>
-    /// Gets the elapsed cooldown time limited to an active charge (0 if a charge is available).
+    /// Gets the cast time in seconds, adjusted by spell cast time modifiers (ex. spell speed/skill speed).
     /// </summary>
-    public float CooldownElapsed
-    {
-        get
-        {
-            if (this.cooldownElapsed > this.BaseCooldown)
-                return 0;
-
-            return this.cooldownElapsed;
-        }
-    }
+    public unsafe float CastTime => ActionManager.GetAdjustedCastTime(ActionType.Action, this.ActionID) / 1000f;
 
     /// <summary>
-    /// Gets the elapsed cooldown time across the total cooldown (total cooldown time - total cooldown already regained).
+    /// Gets the resource cost of the action.
     /// </summary>
-    public float TotalCooldownElapsed => this.cooldownElapsed;
+    public unsafe float Cost => ActionManager.GetActionCost(ActionType.Action, this.ActionID, 1, 0, 0, 0);
 
     /// <summary>
-    /// Gets the cooldown time remaining until all charges are replenished.
+    /// Gets the base cooldown time of an action in seconds, adjusted for spell recast modifiers 
+    /// (ex. spell speed, if relevant)
     /// </summary>
-    public float TotalCooldownRemaining => this.TotalBaseCooldown - this.TotalCooldownElapsed;
+    public float BaseCooldown => ActionManager.GetAdjustedRecastTime(ActionType.Action, this.ActionID) / 1000f;
 
     /// <summary>
-    /// Gets the cooldown time remaining until the current cooldown has recovered.
+    /// Gets the total cooldown of an action across all charges, which is equivalent to the BaseCooldown multiplied
+    /// by the MaxCharges.
     /// </summary>
-    public float CooldownRemaining
-    {
-        get
-        {
-            var (cur, _) = Service.ComboCache.GetMaxCharges(this.ActionID);
-
-            return this.TotalCooldownRemaining % (this.TotalBaseCooldown / cur);
-        }
-    }
+    public float TotalBaseCooldown => this.BaseCooldown * this.MaxCharges;
 
     /// <summary>
     /// Gets the maximum number of charges for an action at the current level.
@@ -138,78 +56,53 @@ internal struct CooldownData
     public ushort MaxCharges => Service.ComboCache.GetMaxCharges(this.ActionID).Current;
 
     /// <summary>
-    /// Gets a value indicating whether the action has charges, not charges available.
+    /// Gets a value indicating whether an action utilizes charges, not whether charges are currently available.
     /// </summary>
-    public bool HasCharges => this.MaxCharges > 1;
+    public bool UsesCharges => this.MaxCharges > 1;
 
     /// <summary>
-    /// Gets the remaining number of charges for an action.
+    /// Gets the currently remaining (ie. usable) number of charges for an action.
     /// </summary>
-    public ushort RemainingCharges
-    {
-        get
-        {
-            var (cur, _) = Service.ComboCache.GetMaxCharges(this.ActionID);
-
-            if (this.TotalCooldownElapsed == 0)
-            {
-                return this.MaxCharges;
-            }
-
-            return (ushort)(this.TotalCooldownElapsed / (this.TotalBaseCooldown / this.MaxCharges));
-        }
-    }
+    public ushort RemainingCharges => !this.isCooldown ? this.MaxCharges : (ushort)(this.TotalCooldownElapsed / this.BaseCooldown);
 
     /// <summary>
-    /// Gets a value indicating whether gets value indicating whether this action has at least one charge out of however many it has total, even if it can only have one "charge".
+    /// Gets a value indicating whether this action is off cooldown, or for charge-based actions, if the action
+    /// has at least one usable charge available.
     /// </summary>
-    public bool Available => this.CooldownRemaining == 0 || this.RemainingCharges > 0;
+    public bool Available => !this.isCooldown || this.RemainingCharges > 0;
 
     /// <summary>
-    /// Gets the time since the cooldown was spent in seconds (only fuctional if actionID is not charge based).
+    /// Gets a value indicating whether the action is on cooldown, or for charge-based actions, if any charges
+    /// are currently recharging.  IsCooldown being true is NOT the same as the action being unavailable, as a
+    /// charged-based action can be both currently recovering a charge and also available for use.
     /// </summary>
-    public float CooldownDuration => this.BaseCooldown - this.CooldownRemaining;
+    public bool IsCooldown => this.isCooldown;
 
     /// <summary>
-    /// Gets the cooldown time remaining until the next charge.
+    /// Gets the cooldown time remaining until all charges are replenished.
     /// </summary>
-    public float ChargeCooldownRemaining
-    {
-        get
-        {
-            var (cur, _) = Service.ComboCache.GetMaxCharges(this.ActionID);
-
-            return this.TotalCooldownRemaining % (this.TotalBaseCooldown / cur);
-        }
-    }
+    public float TotalCooldownRemaining => !this.isCooldown ? 0 : this.TotalBaseCooldown - this.cooldownElapsed;
 
     /// <summary>
-    /// Gets the recovery time in seconds if action is used when cooldown is off.
+    /// Gets the cooldown time remaining until the currently recharging charge is replenished.  For actions that are
+    /// not charge-based, this is mechanically equivalent to TotalCooldownRemaining.
     /// </summary>
-    public float RecoveryTime => this.CooldownRemaining + this.BaseCooldown;
+    public float CooldownRemaining => this.TotalCooldownRemaining % this.BaseCooldown;
 
     /// <summary>
-    /// Gets the time until another charge is available after using the currently refreshing charge.
+    /// Gets the overall elapsed cooldown.  The value will range from 0, immediately after all charges are used, 
+    /// up to the TotalBaseCooldown.  It is not known at this time if a return value of exactly 0 is possible.
+    /// For abilities with charges, this will equal the time elapsed on the current charge's recharge, plus the
+    /// BaseCooldown multiplied by the number of charges currently available.
+    /// As an example, if an ability with 2 charges and a 20s recharge had 1 charge used 5 seconds ago
+    /// (so it has 1 charge available, and 15s remaining until another charge is available), this field would
+    /// return 25s (20 + 5).  If another charge were used at that exact moment, it would then return 5.
     /// </summary>
-    public float ChargeRecoveryTime
-    {
-        get
-        {
-            if ((this.RemainingCharges - 1) >= 0)
-            {
-                return this.ChargeCooldownRemaining;
-            }
-
-            return this.ChargeCooldownRemaining + this.BaseCooldown;
-        }
-    }
+    public float TotalCooldownElapsed => !this.isCooldown ? this.TotalBaseCooldown : this.cooldownElapsed;
 
     /// <summary>
-    /// Gets the cooldown time remaining until all charges of ability are replenished.
+    /// Gets the elapsed time on the recharge of only the currently recharging charge.  For actions that are not
+    /// charge-based, this is mechanically equivalent to TotalCooldownElapsed.
     /// </summary>
-    public float TotalChargeCooldownRemaining => this.MaxCharges - this.RemainingCharges > 0
-            ? this.MaxCharges - this.RemainingCharges == 1
-                ? this.ChargeCooldownRemaining
-                : (this.BaseCooldown * ((this.MaxCharges - this.RemainingCharges) - 1)) + this.ChargeCooldownRemaining
-            : 0;
+    public float CooldownElapsed => this.TotalCooldownElapsed % this.BaseCooldown;
 }

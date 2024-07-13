@@ -215,14 +215,14 @@ internal class DragoonStardiver : CustomCombo
 
             if (IsEnabled(CustomComboPreset.DragoonStardiverNastrondFeature))
             {
-                if (level >= DRG.Levels.Geirskogul && (!gauge.IsLOTDActive || IsOffCooldown(DRG.Nastrond) || IsOnCooldown(DRG.Stardiver)))
+                if (level >= DRG.Levels.Geirskogul && (!gauge.IsLOTDActive || IsCooldownUsable(DRG.Nastrond) || !IsCooldownUsable(DRG.Stardiver)))
                     // Nastrond
                     return OriginalHook(DRG.Geirskogul);
             }
 
             if (IsEnabled(CustomComboPreset.DragoonStardiverDragonfireDiveFeature))
             {
-                if (level < DRG.Levels.Stardiver || !gauge.IsLOTDActive || IsOnCooldown(DRG.Stardiver) || (IsOffCooldown(DRG.DragonfireDive) && gauge.LOTDTimer > 7.5))
+                if (level < DRG.Levels.Stardiver || !gauge.IsLOTDActive || !IsCooldownUsable(DRG.Stardiver) || (IsCooldownUsable(DRG.DragonfireDive) && gauge.LOTDTimer > 7.5))
                     return DRG.DragonfireDive;
             }
         }
@@ -249,7 +249,7 @@ internal class DragoonGierskogul : CustomCombo
                         ? DRG.Nastrond
                         : DRG.Geirskogul;
 
-                    if (IsOnCooldown(action))
+                    if (!IsCooldownUsable(action))
                         return DRG.WyrmwindThrust;
                 }
             }
@@ -267,10 +267,10 @@ internal class DragoonLanceCharge : CustomCombo
     {
         if (actionID == DRG.LanceCharge)
         {
-            if (!IsOnCooldown(DRG.LanceCharge))
+            if (!!IsCooldownUsable(DRG.LanceCharge))
                 return DRG.LanceCharge;
 
-            if (level >= DRG.Levels.BattleLitany && !IsOnCooldown(DRG.BattleLitany))
+            if (level >= DRG.Levels.BattleLitany && !!IsCooldownUsable(DRG.BattleLitany))
                 return DRG.BattleLitany;
         }
 
