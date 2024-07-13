@@ -304,7 +304,7 @@ internal static class PCT
                 {
                     if (gauge.MooglePortraitReady || gauge.MadeenPortraitReady)
                     {
-                        if (IsOffCooldown(PCT.MogOftheAges))
+                        if (IsCooldownUsable(PCT.MogOftheAges))
                             return OriginalHook(PCT.MogOftheAges);
                     }
                 }

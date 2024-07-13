@@ -291,19 +291,19 @@ internal class WarriorBloodwhetting : CustomCombo
             {
                 if (level >= WAR.Levels.Bloodwhetting)
                 {
-                    if (IsOffCooldown(WAR.Bloodwhetting))
+                    if (IsCooldownUsable(WAR.Bloodwhetting))
                         return WAR.Bloodwhetting;
                 }
                 else if (level >= WAR.Levels.RawIntuition)
                 {
-                    if (IsOffCooldown(WAR.RawIntuition))
+                    if (IsCooldownUsable(WAR.RawIntuition))
                         return WAR.RawIntuition;
                 }
 
-                if (level >= WAR.Levels.ThrillOfBattle && IsOffCooldown(WAR.ThrillOfBattle))
+                if (level >= WAR.Levels.ThrillOfBattle && IsCooldownUsable(WAR.ThrillOfBattle))
                     return WAR.ThrillOfBattle;
 
-                if (level >= WAR.Levels.Equilibrium && IsOffCooldown(WAR.Equilibrium))
+                if (level >= WAR.Levels.Equilibrium && IsCooldownUsable(WAR.Equilibrium))
                     return WAR.Equilibrium;
             }
         }

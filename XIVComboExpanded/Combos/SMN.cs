@@ -258,7 +258,7 @@ internal class SummonerDemiFeature : CustomCombo
 
             if (IsEnabled(CustomComboPreset.SummonerDemiSearingLightFeature))
             {
-                if (level >= SMN.Levels.SearingLight && (gauge.IsBahamutReady || gauge.IsPhoenixReady) && InCombat() && IsOffCooldown(SMN.SearingLight))
+                if (level >= SMN.Levels.SearingLight && (gauge.IsBahamutReady || gauge.IsPhoenixReady) && InCombat() && IsCooldownUsable(SMN.SearingLight))
                     return SMN.SearingLight;
             }
 

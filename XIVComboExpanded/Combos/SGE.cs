@@ -108,7 +108,7 @@ internal class SageToxikon : CustomCombo
                     level >= SGE.Levels.Phlegma2 ? SGE.Phlegma2 :
                     level >= SGE.Levels.Phlegma ? SGE.Phlegma : 0;
 
-                if (phlegma != 0 && HasCharges(phlegma))
+                if (phlegma != 0 && IsCooldownUsable(phlegma))
                     return OriginalHook(SGE.Phlegma);
             }
         }
@@ -127,7 +127,7 @@ internal class SageSoteria : CustomCombo
         {
             if (IsEnabled(CustomComboPreset.SageSoteriaKardionFeature))
             {
-                if (!HasEffect(SGE.Buffs.Kardion) && IsOffCooldown(SGE.Soteria))
+                if (!HasEffect(SGE.Buffs.Kardion) && IsCooldownUsable(SGE.Soteria))
                     return SGE.Kardia;
             }
         }
@@ -154,7 +154,7 @@ internal class SageTaurochole : CustomCombo
 
             if (IsEnabled(CustomComboPreset.SageTaurocholeDruocholeFeature))
             {
-                if (level >= SGE.Levels.Taurochole && IsOffCooldown(SGE.Taurochole))
+                if (level >= SGE.Levels.Taurochole && IsCooldownUsable(SGE.Taurochole))
                     return SGE.Taurochole;
 
                 return SGE.Druochole;
@@ -183,7 +183,7 @@ internal class SageDruochole : CustomCombo
 
             if (IsEnabled(CustomComboPreset.SageDruocholeTaurocholeFeature))
             {
-                if (level >= SGE.Levels.Taurochole && IsOffCooldown(SGE.Taurochole))
+                if (level >= SGE.Levels.Taurochole && IsCooldownUsable(SGE.Taurochole))
                     return SGE.Taurochole;
             }
         }
@@ -257,7 +257,7 @@ internal class SagePhlegma : CustomCombo
                     level >= SGE.Levels.Phlegma2 ? SGE.Phlegma2 :
                     level >= SGE.Levels.Phlegma ? SGE.Phlegma : 0;
 
-                if (level >= SGE.Levels.Toxicon && phlegma != 0 && HasNoCharges(phlegma) && gauge.Addersting > 0)
+                if (level >= SGE.Levels.Toxicon && phlegma != 0 && !IsCooldownUsable(phlegma) && gauge.Addersting > 0)
                     return OriginalHook(SGE.Toxikon);
             }
 
@@ -268,7 +268,7 @@ internal class SagePhlegma : CustomCombo
                     level >= SGE.Levels.Phlegma2 ? SGE.Phlegma2 :
                     level >= SGE.Levels.Phlegma ? SGE.Phlegma : 0;
 
-                if (level >= SGE.Levels.Dyskrasia && phlegma != 0 && HasNoCharges(phlegma))
+                if (level >= SGE.Levels.Dyskrasia && phlegma != 0 && !IsCooldownUsable(phlegma))
                     return OriginalHook(SGE.Dyskrasia);
             }
         }

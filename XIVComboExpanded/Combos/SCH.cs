@@ -91,13 +91,13 @@ internal class ScholarExcogitation : CustomCombo
         {
             if (IsEnabled(CustomComboPreset.ScholarExcogitationRecitationFeature))
             {
-                if (level >= SCH.Levels.Recitation && IsOffCooldown(SCH.Recitation))
+                if (level >= SCH.Levels.Recitation && IsCooldownUsable(SCH.Recitation))
                     return SCH.Recitation;
             }
 
             if (IsEnabled(CustomComboPreset.ScholarExcogitationLustrateFeature))
             {
-                if (level < SCH.Levels.Excogitation || IsOnCooldown(SCH.Excogitation))
+                if (level < SCH.Levels.Excogitation || !IsCooldownUsable(SCH.Excogitation))
                     return SCH.Lustrate;
             }
         }
@@ -136,13 +136,13 @@ internal class ScholarLustrate : CustomCombo
 
             if (IsEnabled(CustomComboPreset.ScholarLustrateRecitationFeature))
             {
-                if (level >= SCH.Levels.Recitation && IsOffCooldown(SCH.Recitation))
+                if (level >= SCH.Levels.Recitation && IsCooldownUsable(SCH.Recitation))
                     return SCH.Recitation;
             }
 
             if (IsEnabled(CustomComboPreset.ScholarLustrateExcogitationFeature))
             {
-                if (level >= SCH.Levels.Excogitation && IsOffCooldown(SCH.Excogitation))
+                if (level >= SCH.Levels.Excogitation && IsCooldownUsable(SCH.Excogitation))
                     return SCH.Excogitation;
             }
 

@@ -44,7 +44,7 @@ internal class SwiftRaiseFeature : CustomCombo
             (actionID == SGE.Egeiro && level >= SGE.Levels.Egeiro) ||
             (actionID == WHM.Raise && level >= WHM.Levels.Raise))
         {
-            if (level >= ADV.Levels.Swiftcast && IsOffCooldown(ADV.Swiftcast))
+            if (level >= ADV.Levels.Swiftcast && IsCooldownUsable(ADV.Swiftcast))
                 return ADV.Swiftcast;
         }
 
@@ -57,7 +57,7 @@ internal class SwiftRaiseFeature : CustomCombo
             }
             else if (!IsEnabled(CustomComboPreset.AdvDisableVerRaiseFeature))
             {
-                if (level >= ADV.Levels.Swiftcast && IsOffCooldown(ADV.Swiftcast))
+                if (level >= ADV.Levels.Swiftcast && IsCooldownUsable(ADV.Swiftcast))
                     return ADV.Swiftcast;
             }
         }
@@ -116,7 +116,7 @@ internal class StanceProvokeFeature : CustomCombo
                     return GNB.RoyalGuard;
             }
 
-            if (IsEnabled(CustomComboPreset.AdvStanceBackProvokeFeature) && IsOnCooldown(ADV.Provoke))
+            if (IsEnabled(CustomComboPreset.AdvStanceBackProvokeFeature) && !IsCooldownUsable(ADV.Provoke))
             {
                 if (job == PLD.JobID && level >= PLD.Levels.IronWill)
                     return PLD.IronWillRemoval;
@@ -139,7 +139,7 @@ internal class ShirkStanceFeature : CustomCombo
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
-        if (actionID == ADV.Shirk && IsOnCooldown(ADV.Shirk))
+        if (actionID == ADV.Shirk && !IsCooldownUsable(ADV.Shirk))
         {
             var job = LocalPlayer?.ClassJob.Id;
 

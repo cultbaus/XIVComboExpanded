@@ -192,7 +192,7 @@ internal class DarkCarveAndSpitAbyssalDrain : CustomCombo
                 if (actionID == DRK.CarveAndSpit && level < DRK.Levels.CarveAndSpit)
                     return OriginalHook(DRK.BloodWeapon);
 
-                if (level >= DRK.Levels.BloodWeapon && IsOffCooldown(DRK.BloodWeapon))
+                if (level >= DRK.Levels.BloodWeapon && IsCooldownUsable(DRK.BloodWeapon))
                     return OriginalHook(DRK.BloodWeapon);
             }
         }
@@ -213,7 +213,7 @@ internal class DarkQuietusBloodspiller : CustomCombo
 
             if (IsEnabled(CustomComboPreset.DarkLivingShadowFeature))
             {
-                if (level >= DRK.Levels.LivingShadow && gauge.Blood >= 50 && IsOffCooldown(DRK.LivingShadow))
+                if (level >= DRK.Levels.LivingShadow && gauge.Blood >= 50 && IsCooldownUsable(DRK.LivingShadow))
                     return DRK.LivingShadow;
             }
         }
@@ -234,13 +234,13 @@ internal class DarkLivingShadow : CustomCombo
 
             if (IsEnabled(CustomComboPreset.DarkLivingShadowbringerFeature))
             {
-                if (level >= DRK.Levels.Shadowbringer && gauge.ShadowTimeRemaining > 0 && HasCharges(DRK.Shadowbringer))
+                if (level >= DRK.Levels.Shadowbringer && gauge.ShadowTimeRemaining > 0 && IsCooldownUsable(DRK.Shadowbringer))
                     return DRK.Shadowbringer;
             }
 
             if (IsEnabled(CustomComboPreset.DarkLivingShadowbringerHpFeature))
             {
-                if (level >= DRK.Levels.Shadowbringer && HasCharges(DRK.Shadowbringer) && IsOnCooldown(DRK.LivingShadow))
+                if (level >= DRK.Levels.Shadowbringer && IsCooldownUsable(DRK.Shadowbringer) && !IsCooldownUsable(DRK.LivingShadow))
                     return DRK.Shadowbringer;
             }
         }

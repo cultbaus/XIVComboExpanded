@@ -108,53 +108,26 @@ internal abstract partial class CustomCombo
             (uint ActionID, CooldownData Data) a1,
             (uint ActionID, CooldownData Data) a2)
         {
-            // Neither, return the first parameter
-            if (!a1.Data.IsCooldown && !a2.Data.IsCooldown)
-            {
-                return original == a1.ActionID ? a1 :
-                       original == a2.ActionID ? a2 :
-                       a1;
-            }
+            // This intent of this priority algorithm is to generate a single unified number that results in the 
+            // following behaviors:
+            //   * Any ability that is off cooldown and at maximum charges has maximum (and equal) priority.
+            //   * If only one of the two abilities is currently usable, it has a higher priority.
+            //   * If both abilities are usable but recharging, the one that will cap soonest has higher priority.
+            //   * If neither ability is usable, the one that will be usable soonest has higher priority.
+            //
+            // Mechanically, if the ability is not available, the result will be a negative number representing the
+            // seconds until it is available, so the closer to zero (ie. more positive) the number, the sooner it
+            // will be usable.  If the ability IS currently usable, the result will be a positive number (so always
+            // higher priority than an ability that is not currently usable), adjusted such that the ability with
+            // the shortest time until it reaches charge cap having the largest priority value.
+            // Any ability not currently cooling down will have a priority of 1000.
+            var a1Priority = a1.Data.Available ? (1000 - a1.Data.TotalCooldownRemaining) : -a1.Data.CooldownRemaining;
+            var a2Priority = a2.Data.Available ? (1000 - a2.Data.TotalCooldownRemaining) : -a2.Data.CooldownRemaining;
 
-            // Both, return soonest available
-            if (a1.Data.IsCooldown && a2.Data.IsCooldown)
-            {
-                if (a1.Data.HasCharges && a2.Data.HasCharges)
-                {
-                    if (a1.Data.RemainingCharges == a2.Data.RemainingCharges)
-                    {
-                        return a1.Data.ChargeCooldownRemaining < a2.Data.ChargeCooldownRemaining
-                            ? a1 : a2;
-                    }
+            if (a1Priority == a2Priority)
+                return original == a1.ActionID ? a1 : (original == a2.ActionID ? a2 : a1);
 
-                    return a1.Data.RemainingCharges > a2.Data.RemainingCharges
-                        ? a1 : a2;
-                }
-                else if (a1.Data.HasCharges)
-                {
-                    if (a1.Data.RemainingCharges > 0)
-                        return a1;
-
-                    return a1.Data.ChargeCooldownRemaining < a2.Data.CooldownRemaining
-                        ? a1 : a2;
-                }
-                else if (a2.Data.HasCharges)
-                {
-                    if (a2.Data.RemainingCharges > 0)
-                        return a2;
-
-                    return a2.Data.ChargeCooldownRemaining < a1.Data.CooldownRemaining
-                        ? a2 : a1;
-                }
-                else
-                {
-                    return a1.Data.CooldownRemaining <= a2.Data.CooldownRemaining
-                        ? a1 : a2;
-                }
-            }
-
-            // One or the other
-            return a1.Data.IsCooldown ? a2 : a1;
+            return a1Priority > a2Priority ? a1 : a2;
         }
 
         static (uint ActionID, CooldownData Data) Selector(uint actionID)
@@ -394,36 +367,24 @@ internal abstract partial class CustomCombo
         => Service.PartyList.Count > 0 ? true : false;
 
     /// <summary>
-    /// Gets a value indicating whether an action is on cooldown.
+    /// Gets a value indicating whether an action is currently usable based on its cooldown
+    /// For a charge-based ability, this returns true if the ability has any charges available.
     /// </summary>
     /// <param name="actionID">Action ID to check.</param>
     /// <returns>True or false.</returns>
-    protected static bool IsOnCooldown(uint actionID)
+    protected static bool IsCooldownUsable(uint actionID)
+        => GetCooldown(actionID).Available;
+
+    /// <summary>
+    /// Gets a value indicating whether an action is currently recharging.
+    /// For a non-charge-based ability, this is equivalent to !IsCooldownUsable()
+    /// For a charge-based ability, this returns true if the ability has less than maximum charges,
+    /// so a charge-based ability may still be usable if this returns true.
+    /// </summary>
+    /// <param name="actionID">Action ID to check.</param>
+    /// <returns>True or false.</returns>
+    protected static bool IsRecharging(uint actionID)
         => GetCooldown(actionID).IsCooldown;
-
-    /// <summary>
-    /// Gets a value indicating whether an action is off cooldown.
-    /// </summary>
-    /// <param name="actionID">Action ID to check.</param>
-    /// <returns>True or false.</returns>
-    protected static bool IsOffCooldown(uint actionID)
-        => !GetCooldown(actionID).IsCooldown;
-
-    /// <summary>
-    /// Gets a value indicating whether an action has any available charges.
-    /// </summary>
-    /// <param name="actionID">Action ID to check.</param>
-    /// <returns>True or false.</returns>
-    protected static bool HasCharges(uint actionID)
-        => GetCooldown(actionID).RemainingCharges > 0;
-
-    /// <summary>
-    /// Gets a value indicating whether an action has no available charges.
-    /// </summary>
-    /// <param name="actionID">Action ID to check.</param>
-    /// <returns>True or false.</returns>
-    protected static bool HasNoCharges(uint actionID)
-        => GetCooldown(actionID).RemainingCharges == 0;
 
     /// <summary>
     /// Get the current number of charges remaining for an action.

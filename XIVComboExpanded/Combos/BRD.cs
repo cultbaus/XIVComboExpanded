@@ -216,7 +216,7 @@ internal class BardQuickNock : CustomCombo
                 {
                     if (IsEnabled(CustomComboPreset.BardShadowbiteBarrageFeature))
                     {
-                        if (level >= BRD.Levels.Barrage && IsOffCooldown(BRD.Barrage))
+                        if (level >= BRD.Levels.Barrage && IsCooldownUsable(BRD.Barrage))
                             return BRD.Barrage;
                     }
 
@@ -384,13 +384,13 @@ internal class BardRadiantFinale : CustomCombo
         {
             if (IsEnabled(CustomComboPreset.BardRadiantStrikesFeature))
             {
-                if (level >= BRD.Levels.RagingStrikes && IsOffCooldown(BRD.RagingStrikes))
+                if (level >= BRD.Levels.RagingStrikes && IsCooldownUsable(BRD.RagingStrikes))
                     return BRD.RagingStrikes;
             }
 
             if (IsEnabled(CustomComboPreset.BardRadiantVoiceFeature))
             {
-                if (level >= BRD.Levels.BattleVoice && IsOffCooldown(BRD.BattleVoice))
+                if (level >= BRD.Levels.BattleVoice && IsCooldownUsable(BRD.BattleVoice))
                     return BRD.BattleVoice;
             }
 
@@ -447,7 +447,7 @@ internal class BardMagesBallad : CustomCombo
                 if (gauge.Song == Song.WANDERER && gauge.SongTimer >= remaining)
                     return BRD.WanderersMinuet;
 
-                if (IsOffCooldown(BRD.WanderersMinuet))
+                if (IsCooldownUsable(BRD.WanderersMinuet))
                     return BRD.WanderersMinuet;
             }
 
@@ -456,7 +456,7 @@ internal class BardMagesBallad : CustomCombo
                 if (gauge.Song == Song.MAGE && gauge.SongTimer >= remaining)
                     return BRD.MagesBallad;
 
-                if (IsOffCooldown(BRD.MagesBallad))
+                if (IsCooldownUsable(BRD.MagesBallad))
                     return BRD.MagesBallad;
             }
 
@@ -465,7 +465,7 @@ internal class BardMagesBallad : CustomCombo
                 if (gauge.Song == Song.ARMY && gauge.SongTimer >= remaining)
                     return BRD.ArmysPaeon;
 
-                if (IsOffCooldown(BRD.ArmysPaeon))
+                if (IsCooldownUsable(BRD.ArmysPaeon))
                     return BRD.ArmysPaeon;
             }
 

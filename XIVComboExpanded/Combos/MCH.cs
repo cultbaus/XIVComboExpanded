@@ -138,9 +138,7 @@ internal class MachinistGaussRoundRicochet : CustomCombo
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
-        var richochet = level < MCH.Levels.CheckMate ? MCH.Ricochet : MCH.Checkmate;
-        var gaussRound = level < MCH.Levels.DoubleCheck ? MCH.GaussRound : MCH.DoubleCheck;
-        if (actionID == MCH.GaussRound || actionID == richochet)
+        if (actionID == MCH.GaussRound || actionID == MCH.Ricochet)
         {
             var gauge = GetJobGauge<MCHGauge>();
 
@@ -151,9 +149,9 @@ internal class MachinistGaussRoundRicochet : CustomCombo
             }
 
             if (level >= MCH.Levels.Ricochet)
-                return CalcBestAction(actionID, gaussRound, richochet);
+                return OriginalHook(CalcBestAction(actionID, MCH.GaussRound, MCH.Ricochet));
 
-            return gaussRound;
+            return OriginalHook(MCH.Ricochet);
         }
 
         return actionID;
@@ -168,10 +166,10 @@ internal class MachinistWildfire : CustomCombo
     {
         if (actionID == MCH.Hypercharge)
         {
-            if (level >= MCH.Levels.Wildfire && IsOffCooldown(MCH.Wildfire) && HasTarget())
+            if (level >= MCH.Levels.Wildfire && IsCooldownUsable(MCH.Wildfire) && HasTarget())
                 return MCH.Wildfire;
 
-            if (level >= MCH.Levels.Wildfire && IsOnCooldown(MCH.Hypercharge) && !IsOriginal(MCH.Wildfire))
+            if (level >= MCH.Levels.Wildfire && !IsCooldownUsable(MCH.Hypercharge) && !IsOriginal(MCH.Wildfire))
                 return MCH.Detonator;
         }
 
@@ -191,7 +189,7 @@ internal class MachinistHeatBlastAutoCrossbow : CustomCombo
 
             if (IsEnabled(CustomComboPreset.MachinistHyperfireFeature))
             {
-                if (level >= MCH.Levels.Wildfire && IsOffCooldown(MCH.Wildfire) && HasTarget())
+                if (level >= MCH.Levels.Wildfire && IsCooldownUsable(MCH.Wildfire) && HasTarget())
                     return MCH.Wildfire;
             }
 

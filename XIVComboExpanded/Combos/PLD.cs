@@ -402,7 +402,7 @@ internal class PaladinShieldBash : PaladinCombo
     {
         if (actionID == PLD.ShieldBash)
         {
-            if (level >= PLD.Levels.LowBlow && IsOffCooldown(PLD.LowBlow))
+            if (level >= PLD.Levels.LowBlow && IsCooldownUsable(PLD.LowBlow))
                 return PLD.LowBlow;
         }
 
