@@ -78,7 +78,7 @@ internal static class AST
 
 internal class AstrologianMalefic : CustomCombo
 {
-    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianMaleficDrawFeature;
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstAny;
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
@@ -92,7 +92,8 @@ internal class AstrologianMalefic : CustomCombo
             if (IsEnabled(CustomComboPreset.AstrologianDraw1Feature) && IsOriginal(AST.Play1) && (IsCooldownUsable(AST.AstralDraw) || IsCooldownUsable(AST.UmbralDraw)))
                 return gauge.ActiveDraw == DrawType.ASTRAL ? OriginalHook(AST.AstralDraw) : OriginalHook(AST.UmbralDraw);
 
-            if (IsOriginal(AST.Play1)
+            if (IsEnabled(CustomComboPreset.AstrologianMaleficDrawFeature) &&
+                IsOriginal(AST.Play1)
                 && IsOriginal(AST.Play2)
                 && IsOriginal(AST.Play3)
                 && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
@@ -106,7 +107,7 @@ internal class AstrologianMalefic : CustomCombo
 
 internal class AstrologianGravity : CustomCombo
 {
-    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstrologianGravityDrawFeature;
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.AstAny;
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
@@ -117,7 +118,8 @@ internal class AstrologianGravity : CustomCombo
             if (IsEnabled(CustomComboPreset.AstrologianMaleficArcanaFeature) && gauge.DrawnCrownCard == CardType.LORD && level >= AST.Levels.MinorArcana)
                 return OriginalHook(AST.MinorArcanaDT);
 
-            if (IsOriginal(AST.Play1)
+            if (IsEnabled(CustomComboPreset.AstrologianGravityDrawFeature) &&
+                IsOriginal(AST.Play1)
                 && IsOriginal(AST.Play2)
                 && IsOriginal(AST.Play3)
                 && (IsOriginal(AST.MinorArcanaDT) || level < AST.Levels.MinorArcana)
