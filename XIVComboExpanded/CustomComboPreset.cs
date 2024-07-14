@@ -133,10 +133,10 @@ public enum CustomComboPreset
     [CustomComboInfo("Play to Astral/Umbral Draw", "Replace Play I / II / III & Minor Arcana with with Astral/Umbral Draw when no card is drawn and you can draw.", AST.JobID)]
     AstrologianPlayDrawFeature = 3323,
 
-    [CustomComboInfo("Benefic II/Malefic to Arcana", "Replace Helios by Lady of Crowns when drawn.", AST.JobID)]
+    [CustomComboInfo("Helios to Arcana", "Replace Helios by Lady of Crowns when drawn.", AST.JobID)]
     AstrologianHeliosArcanaFeature = 3324,
 
-    [CustomComboInfo("Malefic to Arcana", "Replace Malefic & Gravity by Lord of Crowns when drawn.", AST.JobID)]
+    [CustomComboInfo("Malefic/Gravity to Arcana", "Replace Malefic & Gravity by Lord of Crowns when drawn.", AST.JobID)]
     AstrologianMaleficArcanaFeature = 3325,
 
     [CustomComboInfo("Benefic II to Benefic Level Sync", "Replace Benefic 2 with Benefic when below level 26 in synced content.", AST.JobID)]
