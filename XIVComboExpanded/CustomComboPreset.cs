@@ -312,19 +312,49 @@ public enum CustomComboPreset
     [CustomComboInfo("Flourishing Fan Dance 4", "Replace Flourish with Fan Dance 4 when available.", DNC.JobID)]
     DancerFlourishFan4Feature = 3808,
 
+    [SecretCustomCombo]
     [ConflictingCombos(DancerSingleTargetProcs)]
     [CustomComboInfo("Single Target Multibutton", "Replace Cascade with its procs and combos as they activate.", DNC.JobID)]
     DancerSingleTargetMultibutton = 3804,
 
+    [SecretCustomCombo]
     [ConflictingCombos(DancerSingleTargetMultibutton)]
     [CustomComboInfo("Single Target to Procs", "Replace Cascade and Fountain with Reverse Cascade and Fountainfall respectively when available.", DNC.JobID)]
     DancerSingleTargetProcs = 3811,
 
+    [SecretCustomCombo]
+    [CustomComboInfo("Single Target Saber Dance", "Replace Cascade, Reverse Cascade, Fountain, and Fountainfall with Saber Dance when at >= 85 Esprit.", DNC.JobID)]
+    DancerSingleTargetSabreDance = 3817,
+
+    [SecretCustomCombo]
+    [ParentCombo(DancerSingleTargetSabreDance)]
+    [CustomComboInfo("Single Target Saber Dance Tech Step", "Use Saber Dance at >= 50 Esprit during Technical Step.", DNC.JobID)]
+    DancerSingleTargetSabreDanceTech = 3818,
+
+    [SecretCustomCombo]
+    [CustomComboInfo("Single Target Dance of the Dawn", "Replace Cascade, Reverse Cascade, Fountain, and Fountainfall with Dance of the Dawn when available and >= 50 Esprit.", DNC.JobID)]
+    DancerSingleTargetDanceOfTheDawn = 3819,
+
+    [SecretCustomCombo]
     [CustomComboInfo("AoE Multibutton", "Replace Windmill with its procs and combos as they activate.", DNC.JobID)]
     DancerAoeMultibutton = 3805,
 
-    [CustomComboInfo("AoE to Procs", "Replace Windmill and Bladeshower with Rising Wiindmill and Bloodshower respectively when available.", DNC.JobID)]
+    [SecretCustomCombo]
+    [CustomComboInfo("AoE to Procs", "Replace Windmill and Bladeshower with Rising Windmill and Bloodshower respectively when available.", DNC.JobID)]
     DancerAoeProcs = 3812,
+
+    [SecretCustomCombo]
+    [CustomComboInfo("AoE Saber Dance", "Replace Windmill, Rising Windmill, Bladeshower, and Bloodshower with Saber Dance when at >= 85 Esprit.", DNC.JobID)]
+    DancerAoeSabreDance = 3820,
+
+    [SecretCustomCombo]
+    [ParentCombo(DancerAoeSabreDance)]
+    [CustomComboInfo("AoE Saber Dance Tech Step", "Use Saber Dance at >= 50 Esprit during Technical Step.", DNC.JobID)]
+    DancerAoeSabreDanceTech = 3821,
+
+    [SecretCustomCombo]
+    [CustomComboInfo("AoE Dance of the Dawn", "Replace Windmill, Rising Windmill, Bladeshower, and Bloodshower with Dance of the Dawn when available and >= 50 Esprit.", DNC.JobID)]
+    DancerAoeDanceOfTheDawn = 3822,
 
     [ConflictingCombos(DancerDanceStepCombo)]
     [CustomComboInfo(

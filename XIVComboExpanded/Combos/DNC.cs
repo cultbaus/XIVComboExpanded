@@ -54,11 +54,14 @@ internal static class DNC
             SilkenSymmetry = 2693,
             SilkenFlow = 2694,
             StandardStep = 1818,
+            StandardFinish = 1821,
             TechnicalStep = 1819,
+            TechnicalFinish = 1822,
             ThreefoldFanDance = 1820,
             FourfoldFanDance = 2699,
             LastDanceReady = 3867,
-            FinishingMoveReady = 3868;
+            FinishingMoveReady = 3868,
+            DanceOfTheDawnReady = 3869;
     }
 
     public static class Debuffs
@@ -83,11 +86,13 @@ internal static class DNC
             FanDance3 = 66,
             TechnicalStep = 70,
             Flourish = 72,
+            SaberDance = 76,
             Tillana = 82,
             FanDance4 = 86,
             StarfallDance = 90,
             LastDance = 92,
-            FinishingMove = 96;
+            FinishingMove = 96,
+            DanceOfTheDawn = 100;
     }
 }
 
@@ -252,6 +257,22 @@ internal class DancerCascadeFountain : CustomCombo
     {
         if (actionID == DNC.Cascade)
         {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetDanceOfTheDawn) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDanceTech) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
+            }
+
             if (IsEnabled(CustomComboPreset.DancerSingleTargetMultibutton))
             {
                 if (level >= DNC.Levels.Fountainfall && (HasEffect(DNC.Buffs.FlourishingFlow) || HasEffect(DNC.Buffs.SilkenFlow)))
@@ -273,10 +294,45 @@ internal class DancerCascadeFountain : CustomCombo
 
         if (actionID == DNC.Fountain)
         {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetDanceOfTheDawn) && 
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDanceTech) && 
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
+            }
+
             if (IsEnabled(CustomComboPreset.DancerSingleTargetProcs))
             {
                 if (level >= DNC.Levels.Fountainfall && (HasEffect(DNC.Buffs.FlourishingFlow) || HasEffect(DNC.Buffs.SilkenFlow)))
                     return DNC.Fountainfall;
+            }
+        }
+
+        if (actionID == DNC.ReverseCascade || actionID == DNC.Fountainfall)
+        {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetDanceOfTheDawn) && 
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerSingleTargetSabreDanceTech) && 
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
             }
         }
 
@@ -292,6 +348,22 @@ internal class DancerWindmillBladeshower : CustomCombo
     {
         if (actionID == DNC.Windmill)
         {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerAoeDanceOfTheDawn) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDanceTech) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
+            }
+
             if (IsEnabled(CustomComboPreset.DancerAoeMultibutton))
             {
                 if (level >= DNC.Levels.Bloodshower && (HasEffect(DNC.Buffs.FlourishingFlow) || HasEffect(DNC.Buffs.SilkenFlow)))
@@ -313,10 +385,45 @@ internal class DancerWindmillBladeshower : CustomCombo
 
         if (actionID == DNC.Bladeshower)
         {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerAoeDanceOfTheDawn) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDanceTech) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
+            }
+
             if (IsEnabled(CustomComboPreset.DancerAoeProcs))
             {
                 if (level >= DNC.Levels.Bloodshower && (HasEffect(DNC.Buffs.FlourishingFlow) || HasEffect(DNC.Buffs.SilkenFlow)))
                     return DNC.Bloodshower;
+            }
+        }
+
+        if (actionID == DNC.RisingWindmill || actionID == DNC.Bloodshower)
+        {
+            var gauge = GetJobGauge<DNCGauge>();
+
+            if (level >= DNC.Levels.SaberDance && !HasEffect(DNC.Buffs.StandardStep) && !HasEffect(DNC.Buffs.TechnicalStep))
+            {
+                if (IsEnabled(CustomComboPreset.DancerAoeDanceOfTheDawn) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.DanceOfTheDawnReady))
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDance) && gauge.Esprit >= 85)
+                    return OriginalHook(DNC.SaberDance);
+
+                if (IsEnabled(CustomComboPreset.DancerAoeSabreDanceTech) &&
+                    gauge.Esprit >= 50 && HasEffect(DNC.Buffs.TechnicalFinish))
+                    return OriginalHook(DNC.SaberDance);
             }
         }
 
