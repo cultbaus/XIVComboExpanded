@@ -1236,6 +1236,10 @@ public enum CustomComboPreset
     [CustomComboInfo("Twin Coil AoE Feature", "Replace Swiftskin's Den and Hunter's Den with their respective Twinblood and Twinfang skills.", VPR.JobID)]
     ViperTwinDenFeature = 4104,
 
+    [SecretCustomCombo]
+    [CustomComboInfo("All-in-one Reawaken Feature", "Replace Reawaken by the Generation skills with their respective Legacies in order.", VPR.JobID)]
+    ViperAutoGenerationsLegaciesFeature = 4123,
+
     [CustomComboInfo("Generation Legacy Feature", "Replaces the Generation skills with their respective Legacies.", VPR.JobID)]
     ViperGenerationLegaciesFeature = 4105,
 

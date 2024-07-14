@@ -230,6 +230,47 @@ internal class TwinDenFeature : CustomCombo
     }
 }
 
+internal class AutoGenerationLegacies : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ViperAutoGenerationsLegaciesFeature;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID == VPR.Reawaken && HasEffect(VPR.Buffs.Reawakened))
+        {
+            var gauge = GetJobGauge<VPRGauge>();
+            var maxtribute = 4;
+
+            if (level == 100)
+            {
+                if (OriginalHook(VPR.SerpentsTail) == VPR.FirstLegacy)
+                    return VPR.FirstLegacy;
+                if (OriginalHook(VPR.SerpentsTail) == VPR.SecondLegacy)
+                    return VPR.SecondLegacy;
+                if (OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
+                    return VPR.ThirdLegacy;
+                if (OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
+                    return VPR.FourthLegacy;
+            }
+
+            if (level >= VPR.Levels.Ouroboros)
+                maxtribute = 5;
+            if (gauge.AnguineTribute == maxtribute)
+                return VPR.FirstGeneration;
+            if (gauge.AnguineTribute == maxtribute - 1)
+                return VPR.SecondGeneration;
+            if (gauge.AnguineTribute == maxtribute - 2)
+                return VPR.ThirdGeneration;
+            if (gauge.AnguineTribute == maxtribute - 3)
+                return VPR.FourthGeneration;
+            if (gauge.AnguineTribute == 1 && level >= VPR.Levels.Ouroboros)
+                return VPR.Ouroboros;
+            }
+
+        return actionID;
+    }
+}
+
 internal class GenerationLegacies : CustomCombo
 {
     protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ViperGenerationLegaciesFeature;
