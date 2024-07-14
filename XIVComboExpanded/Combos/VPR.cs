@@ -239,20 +239,17 @@ internal class AutoGenerationLegacies : CustomCombo
         if (actionID == VPR.Reawaken && HasEffect(VPR.Buffs.Reawakened))
         {
             var gauge = GetJobGauge<VPRGauge>();
-            var maxtribute = 4;
 
-            if (level == 100)
+            if (level >= VPR.Levels.Legacies)
             {
-                if (OriginalHook(VPR.SerpentsTail) == VPR.FirstLegacy)
-                    return VPR.FirstLegacy;
-                if (OriginalHook(VPR.SerpentsTail) == VPR.SecondLegacy)
-                    return VPR.SecondLegacy;
-                if (OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
-                    return VPR.ThirdLegacy;
-                if (OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
-                    return VPR.FourthLegacy;
+                if (OriginalHook(VPR.SerpentsTail) == VPR.FirstLegacy || 
+                    OriginalHook(VPR.SerpentsTail) == VPR.SecondLegacy ||
+                    OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy ||
+                    OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
+                    return OriginalHook(VPR.SerpentsTail);
             }
 
+            var maxtribute = 4;
             if (level >= VPR.Levels.Ouroboros)
                 maxtribute = 5;
             if (gauge.AnguineTribute == maxtribute)
