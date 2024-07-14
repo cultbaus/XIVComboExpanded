@@ -696,6 +696,10 @@ public enum CustomComboPreset
     [CustomComboInfo("Royal Authority Goring Blade Feature", "Replace Royal Authority with Goring Blade when available.", PLD.JobID)]
     PaladinRoyalAuthorityGoringBladeComboFeature = 1918,
 
+    [ConflictingCombos(PaladinRoyalAuthorityAtonementComboFeature)]
+    [CustomComboInfo("Atonement Follow-up", "Replace Royal Authority by Atonement and its combo chain when under the effect of Atonement Ready.", PLD.JobID)]
+    PaladinAtonementCombo = 1921,
+
     [CustomComboInfo("Prominence Combo", "Replace Prominence with its combo chain.", PLD.JobID)]
     PaladinProminenceCombo = 1904,
 

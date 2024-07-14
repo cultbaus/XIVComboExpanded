@@ -205,6 +205,21 @@ internal class PaladinRoyalAuthority : PaladinCombo
                     return PLD.RiotBlade;
                 return PLD.FastBlade;
             }
+
+            if (IsEnabled(CustomComboPreset.PaladinAtonementCombo) && level >= PLD.Levels.Atonement)
+            {
+                var sepulchre = FindEffect(PLD.Buffs.SepulchreReady);
+                if (sepulchre != null && inMeleeRange)
+                    return OriginalHook(PLD.Atonement);
+
+                var supplication = FindEffect(PLD.Buffs.SupplicationReady);
+                if (supplication != null && inMeleeRange)
+                    return OriginalHook(PLD.Atonement);
+
+                var atonementReady = FindEffect(PLD.Buffs.AtonementReady);
+                if (atonementReady != null && inMeleeRange)
+                    return OriginalHook(PLD.Atonement);
+            }
         }
 
         return actionID;
