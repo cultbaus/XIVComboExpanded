@@ -174,10 +174,10 @@ internal class TwinCoilFeature : CustomCombo
                 return VPR.TwinfangBite;
             if (HasEffect(VPR.Buffs.SwiftskinsVenom))
                 return VPR.TwinbloodBite;
-            if (!IsOriginal(VPR.TwinfangBite))
-                return OriginalHook(VPR.TwinfangBite);
-            if (!IsOriginal(VPR.TwinbloodBite))
-                return OriginalHook(VPR.TwinbloodBite);
+            if (OriginalHook(VPR.Twinfang) == VPR.TwinfangBite)
+                return VPR.TwinfangBite;
+            if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodBite)
+                return VPR.TwinbloodBite;
         }
 
         if (actionID == VPR.SwiftskinsCoil)
@@ -186,10 +186,10 @@ internal class TwinCoilFeature : CustomCombo
                 return VPR.TwinfangBite;
             if (HasEffect(VPR.Buffs.SwiftskinsVenom))
                 return VPR.TwinbloodBite;
-            if (!IsOriginal(VPR.Twinfang))
-                return OriginalHook(VPR.Twinfang);
-            if (!IsOriginal(VPR.Twinblood))
-                return OriginalHook(VPR.Twinblood);
+            if (OriginalHook(VPR.Twinfang) == VPR.TwinfangBite)
+                return VPR.TwinfangBite;
+            if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodBite)
+                return VPR.TwinbloodBite;
         }
 
         return actionID;
@@ -208,10 +208,10 @@ internal class TwinDenFeature : CustomCombo
                 return VPR.TwinfangThresh;
             if (HasEffect(VPR.Buffs.FellskinsVenom))
                 return VPR.TwinbloodThresh;
-            if (!IsOriginal(VPR.Twinfang))
-                return OriginalHook(VPR.Twinfang);
-            if (!IsOriginal(VPR.Twinblood))
-                return OriginalHook(VPR.Twinblood);
+            if (OriginalHook(VPR.Twinfang) == VPR.TwinfangThresh)
+                return VPR.TwinfangThresh;
+            if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodThresh)
+                return VPR.TwinbloodThresh;
         }
 
         if (actionID == VPR.SwiftskinsDen)
@@ -220,10 +220,10 @@ internal class TwinDenFeature : CustomCombo
                 return VPR.TwinfangThresh;
             if (HasEffect(VPR.Buffs.FellskinsVenom))
                 return VPR.TwinbloodThresh;
-            if (!IsOriginal(VPR.Twinfang))
-                return OriginalHook(VPR.Twinfang);
-            if (!IsOriginal(VPR.Twinblood))
-                return OriginalHook(VPR.Twinblood);
+            if (OriginalHook(VPR.Twinfang) == VPR.TwinfangThresh)
+                return VPR.TwinfangThresh;
+            if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodThresh)
+                return VPR.TwinbloodThresh;
         }
 
         return actionID;
@@ -427,16 +427,16 @@ internal class MergeTwinsSerpentFeature : CustomCombo
         {
             if (!IsOriginal(VPR.SerpentsTail))
                 return OriginalHook(VPR.SerpentsTail);
-            else
-                return OriginalHook(VPR.Twinfang);
+
+            return OriginalHook(VPR.Twinfang);
         }
 
         if (actionID == VPR.Twinblood)
         {
             if (!IsOriginal(VPR.SerpentsTail))
                 return OriginalHook(VPR.SerpentsTail);
-            else
-                return OriginalHook(VPR.Twinblood);
+
+            return OriginalHook(VPR.Twinblood);
         }
 
         return actionID;
@@ -488,8 +488,8 @@ internal class PvPMainComboFeature : CustomCombo
 
                     if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlankstingFeature) || IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlanksbaneFeature))
                         return VPR.HuntersSting;
-                    else
-                        return VPR.SwiftskinsSting;
+
+                    return VPR.SwiftskinsSting;
                 }
 
                 // Third step, if we are here, prefer to use what we have buffs for, otherwise use defaults
@@ -549,8 +549,8 @@ internal class PvPMainComboAoEFeature : CustomCombo
                 var noxious = FindTargetEffect(VPR.Debuffs.NoxiousGash); // TODO: Would be useful to handle the case with no target
                 if (level >= VPR.Levels.DreadMaw && (noxious is null || noxious?.RemainingTime < 12)) // 12s hopefully means we won't miss anything on a Reawaken window
                     return VPR.DreadMaw;
-                else
-                    return VPR.SteelMaw;
+
+                return VPR.SteelMaw;
             }
 
             // Second step, since there's no requirement here, we can just use whichever has the shorter buff timer
@@ -564,8 +564,8 @@ internal class PvPMainComboAoEFeature : CustomCombo
                     return VPR.HuntersBite;
                 if (swift?.RemainingTime <= instinct?.RemainingTime)
                     return VPR.SwiftskinsBite;
-                else
-                    return VPR.HuntersBite;
+
+                return VPR.HuntersBite;
             }
 
             if (OriginalHook(VPR.SteelMaw) == VPR.JaggedMaw)
