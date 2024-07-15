@@ -599,6 +599,18 @@ internal class PvPWinderComboFeature : CustomCombo
                     return VPR.Ouroboros;
             }
 
+            if (IsEnabled(CustomComboPreset.ViperTwinCoilFeature))
+            {
+                if (HasEffect(VPR.Buffs.HuntersVenom))
+                    return VPR.TwinfangBite;
+                if (HasEffect(VPR.Buffs.SwiftskinsVenom))
+                    return VPR.TwinbloodBite;
+                if (OriginalHook(VPR.Twinfang) == VPR.TwinfangBite)
+                    return VPR.TwinfangBite;
+                if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodBite)
+                    return VPR.TwinbloodBite;
+            }
+
             if (IsEnabled(CustomComboPreset.ViperPvPWinderComboStartHuntersFeature))
             {
                 if (gauge.DreadCombo is DreadCombo.Dreadwinder and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
@@ -638,6 +650,18 @@ internal class PvPPitComboFeature : CustomCombo
             {
                 if (gauge.AnguineTribute == 1)
                     return VPR.Ouroboros;
+            }
+
+            if (IsEnabled(CustomComboPreset.ViperTwinCoilFeature))
+            {
+                if (HasEffect(VPR.Buffs.FellhuntersVenom))
+                    return VPR.TwinfangThresh;
+                if (HasEffect(VPR.Buffs.FellskinsVenom))
+                    return VPR.TwinbloodThresh;
+                if (OriginalHook(VPR.Twinfang) == VPR.TwinfangThresh)
+                    return VPR.TwinfangThresh;
+                if (OriginalHook(VPR.Twinblood) == VPR.TwinbloodThresh)
+                    return VPR.TwinbloodThresh;
             }
 
             if (IsEnabled(CustomComboPreset.ViperPvPPitComboStartHuntersFeature))
