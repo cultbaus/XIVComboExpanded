@@ -1263,7 +1263,7 @@ public enum CustomComboPreset
     ViperTwinCoilFeature = 4103,
 
     [SecretCustomCombo]
-    [CustomComboInfo("Twin Coil AoE Feature", "Replace Swiftskin's Den and Hunter's Den with their respective Twinblood and Twinfang skills.", VPR.JobID)]
+    [CustomComboInfo("Twin Den (AoE) Feature", "Replace Swiftskin's Den and Hunter's Den with their respective Twinblood and Twinfang skills.", VPR.JobID)]
     ViperTwinDenFeature = 4104,
 
     [SecretCustomCombo]
