@@ -473,45 +473,43 @@ internal class PvPMainComboFeature : CustomCombo
                 var noxious = FindTargetEffect(VPR.Debuffs.NoxiousGash);
                 if (level >= VPR.Levels.DreadFangs && (noxious is null || noxious?.RemainingTime < 12)) // 12s hopefully means we won't miss anything on a Reawaken window
                     return VPR.DreadFangs;
-                else
-                    return VPR.SteelFangs;
+
+                return VPR.SteelFangs;
             }
-            else
+
+            // Second step, if we have a third step buff use that combo, otherwise use from default combo
+            if (OriginalHook(VPR.SteelFangs) == VPR.HuntersSting)
             {
-                // Second step, if we have a third step buff use that combo, otherwise use from default combo
-                if (OriginalHook(VPR.SteelFangs) == VPR.HuntersSting)
-                {
-                    if (HasEffect(VPR.Buffs.HindsbaneVenom) || HasEffect(VPR.Buffs.HindstungVenom))
-                        return VPR.SwiftskinsSting;
-                    if (HasEffect(VPR.Buffs.FlanksbaneVenom) || HasEffect(VPR.Buffs.FlankstungVenom))
-                        return VPR.HuntersSting;
-
-                    if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlankstingFeature) || IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlanksbaneFeature))
-                        return VPR.HuntersSting;
-
+                if (HasEffect(VPR.Buffs.HindsbaneVenom) || HasEffect(VPR.Buffs.HindstungVenom))
                     return VPR.SwiftskinsSting;
-                }
+                if (HasEffect(VPR.Buffs.FlanksbaneVenom) || HasEffect(VPR.Buffs.FlankstungVenom))
+                    return VPR.HuntersSting;
 
-                // Third step, if we are here, prefer to use what we have buffs for, otherwise use defaults
-                if (OriginalHook(VPR.SteelFangs) == VPR.FlankstingStrike || OriginalHook(VPR.SteelFangs) == VPR.HindstingStrike)
-                {
-                    if (HasEffect(VPR.Buffs.HindsbaneVenom))
-                        return VPR.HindsbaneFang;
-                    if (HasEffect(VPR.Buffs.HindstungVenom))
-                        return VPR.HindstingStrike;
-                    if (HasEffect(VPR.Buffs.FlanksbaneVenom))
-                        return VPR.FlanksbaneFang;
-                    if (HasEffect(VPR.Buffs.FlankstungVenom))
-                        return VPR.FlankstingStrike;
+                if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlankstingFeature) || IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlanksbaneFeature))
+                    return VPR.HuntersSting;
 
-                    if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartHindstingFeature))
-                        return VPR.HindstingStrike;
-                    if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlanksbaneFeature))
-                        return VPR.FlanksbaneFang;
-                    if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlankstingFeature))
-                        return VPR.FlankstingStrike;
+                return VPR.SwiftskinsSting;
+            }
+
+            // Third step, if we are here, prefer to use what we have buffs for, otherwise use defaults
+            if (OriginalHook(VPR.SteelFangs) == VPR.FlankstingStrike || OriginalHook(VPR.SteelFangs) == VPR.HindstingStrike)
+            {
+                if (HasEffect(VPR.Buffs.HindsbaneVenom))
                     return VPR.HindsbaneFang;
-                }
+                if (HasEffect(VPR.Buffs.HindstungVenom))
+                    return VPR.HindstingStrike;
+                if (HasEffect(VPR.Buffs.FlanksbaneVenom))
+                    return VPR.FlanksbaneFang;
+                if (HasEffect(VPR.Buffs.FlankstungVenom))
+                    return VPR.FlankstingStrike;
+
+                if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartHindstingFeature))
+                    return VPR.HindstingStrike;
+                if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlanksbaneFeature))
+                    return VPR.FlanksbaneFang;
+                if (IsEnabled(CustomComboPreset.ViperPvPMainComboStartFlankstingFeature))
+                    return VPR.FlankstingStrike;
+                return VPR.HindsbaneFang;
             }
         }
 
@@ -577,6 +575,7 @@ internal class PvPMainComboAoEFeature : CustomCombo
 
                 if (IsEnabled(CustomComboPreset.ViperPvPMainComboAoEStartBloodiedFeature))
                     return VPR.BloodiedMaw;
+
                 return VPR.JaggedMaw;
             }
         }
@@ -608,18 +607,18 @@ internal class PvPWinderComboFeature : CustomCombo
                     return VPR.SwiftskinsCoil;
                 if (gauge.DreadCombo is DreadCombo.SwiftskinsCoil and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
                     return VPR.Dreadwinder;
+
                 return VPR.Dreadwinder;
             }
-            else
-            {
-                if (gauge.DreadCombo is DreadCombo.Dreadwinder and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
-                    return VPR.SwiftskinsCoil;
-                if (gauge.DreadCombo is DreadCombo.SwiftskinsCoil and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
-                    return VPR.HuntersCoil;
-                if (gauge.DreadCombo is DreadCombo.HuntersCoil and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
-                    return VPR.Dreadwinder;
+
+            if (gauge.DreadCombo is DreadCombo.Dreadwinder and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
+                return VPR.SwiftskinsCoil;
+            if (gauge.DreadCombo is DreadCombo.SwiftskinsCoil and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
+                return VPR.HuntersCoil;
+            if (gauge.DreadCombo is DreadCombo.HuntersCoil and not DreadCombo.PitOfDread and not DreadCombo.HuntersDen and not DreadCombo.SwiftskinsDen)
                 return VPR.Dreadwinder;
-            }
+
+            return VPR.Dreadwinder;
         }
 
         return actionID;
@@ -649,18 +648,18 @@ internal class PvPPitComboFeature : CustomCombo
                     return VPR.SwiftskinsDen;
                 if (gauge.DreadCombo is DreadCombo.SwiftskinsDen and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
                     return VPR.PitOfDread;
+
                 return VPR.PitOfDread;
             }
-            else
-            {
-                if (gauge.DreadCombo is DreadCombo.PitOfDread and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
-                    return VPR.SwiftskinsDen;
-                if (gauge.DreadCombo is DreadCombo.SwiftskinsDen and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
-                    return VPR.HuntersDen;
-                if (gauge.DreadCombo is DreadCombo.HuntersDen and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
-                    return VPR.PitOfDread;
+
+            if (gauge.DreadCombo is DreadCombo.PitOfDread and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
+                return VPR.SwiftskinsDen;
+            if (gauge.DreadCombo is DreadCombo.SwiftskinsDen and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
+                return VPR.HuntersDen;
+            if (gauge.DreadCombo is DreadCombo.HuntersDen and not DreadCombo.Dreadwinder and not DreadCombo.HuntersCoil and not DreadCombo.SwiftskinsCoil)
                 return VPR.PitOfDread;
-            }
+
+            return VPR.PitOfDread;
         }
 
         return actionID;
