@@ -66,7 +66,7 @@ internal static class BLM
             Fire4 = 60,
             BetweenTheLines = 62,
             Despair = 72,
-            UmbralSoul = 76,
+            UmbralSoul = 35,
             Xenoglossy = 80,
             HighFire2 = 82,
             HighBlizzard2 = 82,
