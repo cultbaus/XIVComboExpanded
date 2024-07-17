@@ -165,7 +165,7 @@ public enum CustomComboPreset
 
     [SecretCustomCombo]
     [ParentCombo(BlackEnochianFeature)]
-    [CustomComboInfo("Enochian Timer Feature", "Replace Fire 4 and Blizzard 4 with Fire 3 Proc, Paradox, or Blizzard 3 when Enochian is about to run out.", BLM.JobID)]
+    [CustomComboInfo("Enochian Timer Feature", "Replace Fire 4 and Blizzard 4 with Fire 3 Proc, Paradox, Instant-Despair, or Blizzard 3 when Enochian is about to run out.", BLM.JobID)]
     BlackEnochianTimerFeature = 2525,
 
     [ParentCombo(BlackEnochianFeature)]

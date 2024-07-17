@@ -126,6 +126,8 @@ internal class BlackFireBlizzard4 : CustomCombo
                                     return BLM.Fire3;
                                 if (level > BLM.Levels.Paradox && gauge.IsParadoxActive)
                                     return BLM.Paradox;
+                                if (level > BLM.Levels.Despair && LocalPlayer?.CurrentMp > 0 && (HasEffect(BLM.Buffs.Swiftcast) || HasEffect(BLM.Buffs.Triplecast)))
+                                    return BLM.Despair;
                                 if (level >= BLM.Levels.Blizzard3)
                                     return BLM.Blizzard3;
                             }
