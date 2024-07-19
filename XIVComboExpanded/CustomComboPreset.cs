@@ -656,20 +656,6 @@ public enum CustomComboPreset
     [CustomComboInfo("Armor Crush / Raiju Feature", "Replace the Armor Crush combo with Forked Raiju when available.", NIN.JobID)]
     NinjaArmorCrushRaijuFeature = 3012,
 
-    //[CustomComboInfo("Huraijin / Armor Crush Combo", "Replace Huraijin with Armor Crush after using Gust Slash when Huton is missing.", NIN.JobID)]
-    //NinjaHuraijinArmorCrushCombo = 3010,
-
-    //[CustomComboInfo("Huraijin / Ninjutsu Feature", "Replace Huraijin with Ninjutsu if any Mudra are used.", NIN.JobID)]
-    //NinjaHuraijinNinjutsuFeature = 3009,
-
-    //[ConflictingCombos(NinjaHuraijinFleetingRaijuFeature)]
-    //[CustomComboInfo("Huraijin / Forked Raiju Feature", "Replace Huraijin with Forked Raiju when available.", NIN.JobID)]
-    //NinjaHuraijinForkedRaijuFeature = 3011,
-
-    //[ConflictingCombos(NinjaHuraijinForkedRaijuFeature)]
-    //[CustomComboInfo("Huraijin / Fleeting Raiju Option", "Replace Huraijin with Fleeting Raiju when available.", NIN.JobID)]
-    //NinjaHuraijinFleetingRaijuFeature = 3014,
-
     [CustomComboInfo("Hakke Mujinsatsu Combo", "Replace Hakke Mujinsatsu with its combo chain.", NIN.JobID)]
     NinjaHakkeMujinsatsuCombo = 3003,
 
