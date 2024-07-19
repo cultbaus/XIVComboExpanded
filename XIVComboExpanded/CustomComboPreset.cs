@@ -997,7 +997,7 @@ public enum CustomComboPreset
     RedMageVerprocPlusFeature = 3505,
 
     [ParentCombo(RedMageVerprocPlusFeature)]
-    [CustomComboInfo("Deprioritize Grand Impact", "After using Acceleration, prioritize using Veraero/Verthunder over Grand Impact if both buffs are active.", RDM.JobID)]
+    [CustomComboInfo("Deprioritize Grand Impact Plus", "After using Acceleration, prioritize using Veraero/Verthunder over Grand Impact if both buffs are active.", RDM.JobID)]
     RedMageGrandImpactDeprioritize = 3517,
 
     [CustomComboInfo("Verstone/Verfire Plus Opener Feature (Stone)", "Replace Verstone with Veraero when out of combat.", RDM.JobID)]
