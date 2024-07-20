@@ -820,7 +820,7 @@ public enum CustomComboPreset
     ReaperInfernalSliceCombo = 3901,
 
     [CustomComboInfo("Slice Combo", "Replace Slice with its combo chain.", RPR.JobID)]
-    ReaperSliceCombo = 3947,    
+    ReaperSliceCombo = 3947,
 
     [ConflictingCombos(ReaperSliceGallowsFeature)]
     [CustomComboInfo("Slice Gibbet Feature", "Replace Infernal Slice with Gibbet while Reaving or Enshrouded.", RPR.JobID)]
