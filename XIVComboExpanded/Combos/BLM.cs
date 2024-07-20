@@ -111,7 +111,7 @@ internal class BlackFireBlizzard4 : CustomCombo
                 {
                     if (level >= BLM.Levels.FlareStar)
                     {
-                        if (gauge.AstralSoulStacks >= 6)
+                        // if (gauge.AstralSoulStacks >= 6)
                             return BLM.FlareStar;
                     }
                 }
@@ -138,7 +138,7 @@ internal class BlackFireBlizzard4 : CustomCombo
                     {
                         if (IsEnabled(CustomComboPreset.BlackEnochianDespairFlareStarFeature))
                         {
-                            if (level >= BLM.Levels.FlareStar && gauge.AstralSoulStacks >= 6 && LocalPlayer?.CurrentMp <= 0)
+                            if (level >= BLM.Levels.FlareStar /* && gauge.AstralSoulStacks >= 6 && LocalPlayer?.CurrentMp <= 0*/)
                                 return BLM.FlareStar;
                         }
 
@@ -344,8 +344,8 @@ internal class BlackFire2 : CustomCombo
                 // Level 100 uses a simplified rotation that just uses Flare twice and then Flare Star.
                 if (level >= BLM.Levels.FlareStar)
                 {
-                    if (gauge.AstralSoulStacks >= 6)
-                        return BLM.FlareStar;
+                    // if (gauge.AstralSoulStacks >= 6)
+                        // return BLM.FlareStar;
 
                     return BLM.Flare;
                 }

@@ -120,7 +120,7 @@ internal class MonkOpoCombo : CustomCombo
                     return OriginalHook(MNK.MasterfulBlitz);
             }
 
-            if (gauge.OpoOpoFury == 0 && level >= MNK.Levels.DragonKick)
+            if (/* gauge.OpoOpoFury == 0 && */ level >= MNK.Levels.DragonKick)
                 return MNK.DragonKick;
         }
 
@@ -145,7 +145,7 @@ internal class MonkRaptorCombo : CustomCombo
                     return OriginalHook(MNK.MasterfulBlitz);
             }
 
-            if (gauge.RaptorFury == 0 && level > MNK.Levels.TwinSnakes)
+            if (/* gauge.RaptorFury == 0 && */ level > MNK.Levels.TwinSnakes)
                 return MNK.TwinSnakes;
         }
 
@@ -170,7 +170,7 @@ internal class MonkCoeurlCombo : CustomCombo
                     return OriginalHook(MNK.MasterfulBlitz);
             }
 
-            if (gauge.CoeurlFury == 0 && level > MNK.Levels.Demolish)
+            if (/* gauge.CoeurlFury == 0 && */ level > MNK.Levels.Demolish)
                 return MNK.Demolish;
         }
 
@@ -209,7 +209,7 @@ internal class MonkMonkeyMode : CustomCombo
                 {
                     if (level >= MNK.Levels.TwinSnakes && !gauge.BeastChakra.Contains(BeastChakra.RAPTOR))
                     {
-                        if (gauge.RaptorFury == 0 && level >= MNK.Levels.TwinSnakes)
+                        if (/* gauge.RaptorFury == 0 && */ level >= MNK.Levels.TwinSnakes)
                             return MNK.TwinSnakes;
                         else
                             return OriginalHook(MNK.TrueStrike);
@@ -217,7 +217,7 @@ internal class MonkMonkeyMode : CustomCombo
 
                     if (level >= MNK.Levels.Demolish && !gauge.BeastChakra.Contains(BeastChakra.COEURL))
                     {
-                        if (gauge.CoeurlFury == 0 && level >= MNK.Levels.Demolish)
+                        if (/* gauge.CoeurlFury == 0 && */ level >= MNK.Levels.Demolish)
                             return MNK.Demolish;
                         else
                             return OriginalHook(MNK.SnapPunch);
@@ -225,7 +225,7 @@ internal class MonkMonkeyMode : CustomCombo
 
                     if (level >= MNK.Levels.DragonKick && !gauge.BeastChakra.Contains(BeastChakra.OPOOPO))
                        {
-                        if (gauge.OpoOpoFury == 0 && level >= MNK.Levels.DragonKick)
+                        if (/* gauge.OpoOpoFury == 0 && */ level >= MNK.Levels.DragonKick)
                             return MNK.DragonKick;
                         else
                             return OriginalHook(MNK.Bootshine);
@@ -235,7 +235,7 @@ internal class MonkMonkeyMode : CustomCombo
                 // Lunar Nadi or both
                 else if (level >= MNK.Levels.EnhancedPerfectBalance && gauge.Nadi.HasFlag(Nadi.SOLAR))
                 {
-                    if (gauge.OpoOpoFury == 0 && level >= MNK.Levels.DragonKick)
+                    if (/* gauge.OpoOpoFury == 0 && */ level >= MNK.Levels.DragonKick)
                         return MNK.DragonKick;
                     else
                         return OriginalHook(MNK.Bootshine);
@@ -256,7 +256,7 @@ internal class MonkMonkeyMode : CustomCombo
 
             if (HasEffect(MNK.Buffs.RaptorForm))
             {
-                if (gauge.RaptorFury == 0 && level >= MNK.Levels.TwinSnakes)
+                if (/* gauge.RaptorFury == 0 && */ level >= MNK.Levels.TwinSnakes)
                     return MNK.TwinSnakes;
                 else
                     return OriginalHook(MNK.TrueStrike);
@@ -264,7 +264,7 @@ internal class MonkMonkeyMode : CustomCombo
 
             if (HasEffect(MNK.Buffs.CoerlForm))
             {
-                if (gauge.CoeurlFury == 0 && level >= MNK.Levels.Demolish)
+                if (/* gauge.CoeurlFury == 0 && */ level >= MNK.Levels.Demolish)
                     return MNK.Demolish;
                 else
                     return OriginalHook(MNK.SnapPunch);
@@ -272,7 +272,7 @@ internal class MonkMonkeyMode : CustomCombo
 
             if (HasEffect(MNK.Buffs.OpoOpoForm) || (!HasEffect(MNK.Buffs.OpoOpoForm) || !HasEffect(MNK.Buffs.CoerlForm) || !HasEffect(MNK.Buffs.RaptorForm)))
             {
-                if (gauge.OpoOpoFury == 0 && level >= MNK.Levels.DragonKick)
+                if (/* gauge.OpoOpoFury == 0 && */ level >= MNK.Levels.DragonKick)
                     return MNK.DragonKick;
                 else
                     return OriginalHook(MNK.Bootshine);
