@@ -177,6 +177,19 @@ internal class ReaperSlice : CustomCombo
                     return RPR.Perfectio;
             }
 
+            if (IsEnabled(CustomComboPreset.ReaperInfernalSliceCombo))
+            {
+                if (comboTime > 0)
+                {
+                    if (lastComboMove == RPR.WaxingSlice && level >= RPR.Levels.InfernalSlice)
+                        return RPR.InfernalSlice;
+
+                    if (lastComboMove == RPR.Slice && level >= RPR.Levels.WaxingSlice)
+                        return RPR.WaxingSlice;
+                }
+                return RPR.Slice;
+            }
+        } else if (actionID == RPR.Slice) {
             if (IsEnabled(CustomComboPreset.ReaperSliceCombo))
             {
                 if (comboTime > 0)
@@ -187,7 +200,6 @@ internal class ReaperSlice : CustomCombo
                     if (lastComboMove == RPR.Slice && level >= RPR.Levels.WaxingSlice)
                         return RPR.WaxingSlice;
                 }
-
                 return RPR.Slice;
             }
         }
