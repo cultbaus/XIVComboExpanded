@@ -1241,103 +1241,26 @@ public enum CustomComboPreset
     // ====================================================================================
     #region VIPER
 
-    [CustomComboInfo("Steel Tail Feature", "Replace Steel Fangs and Dread Fangs with Serpent's Tail after finishing a combo.", VPR.JobID)]
-    ViperSteelTailFeature = 4101,
+    [CustomComboInfo("Single Target", "Replace single targets with oGCD", VPR.JobID)]
+    SingleTarget = 4101,
 
-    [CustomComboInfo("Steel Tail AoE Feature", "Replace Steel Maw and Dread Maw with Serpent's Tail after finishing a combo.", VPR.JobID)]
-    ViperSteelTailAoEFeature = 4102,
+    [CustomComboInfo("AOE", "Replace AOE with oGCD", VPR.JobID)]
+    AoE = 4102,
 
-    [SecretCustomCombo]
-    [CustomComboInfo("Twin Coil Feature", "Replace Swiftskin's Coil and Hunter's Coil with their respective Twinblood and Twinfang skills.", VPR.JobID)]
-    ViperTwinCoilFeature = 4103,
+    [CustomComboInfo("Uncoiled", "Replace Uncoiled Fury with oGCDs", VPR.JobID)]
+    Uncoiled = 4103,
 
-    [SecretCustomCombo]
-    [CustomComboInfo("Twin Den (AoE) Feature", "Replace Swiftskin's Den and Hunter's Den with their respective Twinblood and Twinfang skills.", VPR.JobID)]
-    ViperTwinDenFeature = 4104,
+    [CustomComboInfo("Reawaken", "Replace Steel Fangs + Reawaken with Generations + Ouroboros", VPR.JobID)]
+    Reawaken = 4104,
 
-    [SecretCustomCombo]
-    [CustomComboInfo("All-in-one Reawaken Feature", "Replace Reawaken by the Generation skills with their respective Legacies in order.", VPR.JobID)]
-    ViperAutoGenerationsLegaciesFeature = 4123,
+    [CustomComboInfo("Coil Combo", "Coils + oGCDs in one", VPR.JobID)]
+    Coil = 4105,
 
-    [CustomComboInfo("Generation Legacy Feature", "Replaces the Generation skills with their respective Legacies.", VPR.JobID)]
-    ViperGenerationLegaciesFeature = 4105,
+    [CustomComboInfo("Den Combo", "Dens + oGCDs in one", VPR.JobID)]
+    Den = 4106,
 
-    [CustomComboInfo("Generation Legacy AoE Feature", "Replaces the AoE versions of Generation skills with their respective Legacies.", VPR.JobID)]
-    ViperGenerationLegaciesAoEFeature = 4106,
-
-    [CustomComboInfo("Uncoiled Fury Followup", "Replaces Uncoiled Fury with Uncoiled Twinfang and Uncoiled Twinblood in sequence.", VPR.JobID)]
-    ViperUncoiledFollowupFeature = 4107,
-
-    [CustomComboInfo("Fury And Ire", "Replaces Uncoiled Fury with Serpent's Ire when out of Rattling Coil stacks.", VPR.JobID)]
-    ViperFuryAndIreFeature = 4108,
-
-    [SecretCustomCombo]
-    [CustomComboInfo("Dread Fangs to Dreadwinder", "Replaces Dread Fangs to Dreadwinder when there are stacks present and not currently in a combo.", VPR.JobID)]
-    ViperDreadfangsDreadwinderFeature = 4109,
-
-    [SecretCustomCombo]
-    [CustomComboInfo("Dread Maw to Pit of Dread", "Replaces Dread Maw with Pit of Dread when there are stacks present and not currently in a combo.", VPR.JobID)]
-    ViperPitOfDreadFeature = 4110,
-
-    [ConflictingCombos(ViperMergeTwinsSerpentFeature)]
-    [CustomComboInfo("Merge Twinfang/Twinblood onto Serpent's Tail Feature", "Merge all Twinfang/Twinblood abilities onto Serpent's Tail.", VPR.JobID)]
-    ViperMergeSerpentTwinsFeature = 4111,
-
-    [ConflictingCombos(ViperMergeSerpentTwinsFeature)]
-    [CustomComboInfo("Merge Serpent's Tail onto Twinfang/Twinblood Feature", "Merge all Serpent's Tail abilities onto Twinfang/Twinblood.", VPR.JobID)]
-    ViperMergeTwinsSerpentFeature = 4112,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperSteelTailFeature)]
-    [CustomComboInfo("Viper PvP Style Main Combo", "Condenses the main combo to a single button, like PvP.\nThe combo detects buffs and debuffs to prioritize skills.\nThe default combo ender is Hindsbane Fang, configurable below.", VPR.JobID)]
-    ViperPvPMainComboFeature = 4113,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperPvPMainComboStartFlankstingFeature, ViperPvPMainComboStartHindstingFeature)]
-    [ParentCombo(ViperPvPMainComboFeature)]
-    [CustomComboInfo("PvP Combo Start Flanksbane Fang", "With no buffs, end first combo with Flanksbane Fang.", VPR.JobID)]
-    ViperPvPMainComboStartFlanksbaneFeature = 4114,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperPvPMainComboStartFlanksbaneFeature, ViperPvPMainComboStartHindstingFeature)]
-    [ParentCombo(ViperPvPMainComboFeature)]
-    [CustomComboInfo("PvP Combo Start Flanksting Strike", "With no buffs, end first combo with Flanksting Strike.", VPR.JobID)]
-    ViperPvPMainComboStartFlankstingFeature = 4115,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperPvPMainComboStartFlanksbaneFeature, ViperPvPMainComboStartFlankstingFeature)]
-    [ParentCombo(ViperPvPMainComboFeature)]
-    [CustomComboInfo("PvP Combo Start Hindsting Strike", "With no buffs, end first combo with Hindsting Strike.", VPR.JobID)]
-    ViperPvPMainComboStartHindstingFeature = 4116,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperSteelTailAoEFeature)]
-    [CustomComboInfo("Viper PvP Style AoE Combo", "Condenses the main combo to a single button, like PvP.\nThe combo can only detect debuffs on the current target.\nStarts with Jagged Maw by default, configurable below.", VPR.JobID)]
-    ViperPvPMainComboAoEFeature = 4117,
-
-    [SecretCustomCombo]
-    [ParentCombo(ViperPvPMainComboAoEFeature)]
-    [CustomComboInfo("PvP AoE Combo Start Bloodied Maw", "With no buffs, end first combo with Bloodied Maw.", VPR.JobID)]
-    ViperPvPMainComboAoEStartBloodiedFeature = 4118,
-
-    [SecretCustomCombo]
-    [ConflictingCombos(ViperSteelTailFeature)]
-    [CustomComboInfo("Viper PvP Style Winder Combo", "Condenses the Dreadwinder combo to a single button, like PvP.\nStarts with Swiftskin's Coil by default.", VPR.JobID)]
-    ViperPvPWinderComboFeature = 4119,
-
-    [SecretCustomCombo]
-    [ParentCombo(ViperPvPWinderComboFeature)]
-    [CustomComboInfo("Start with Hunter's Coil", "Start with Hunter's Coil instead.", VPR.JobID)]
-    ViperPvPWinderComboStartHuntersFeature = 4120,
-
-    [SecretCustomCombo]
-    [CustomComboInfo("Viper PvP Style Pit Combo", "Condenses the Pit of Dread combo to a single button, like PvP.\nStarts with Swiftskin's Den by default.", VPR.JobID)]
-    ViperPvPPitComboFeature = 4121,
-
-    [SecretCustomCombo]
-    [ParentCombo(ViperPvPPitComboFeature)]
-    [CustomComboInfo("Start with Hunter's Den", "Start with Hunter's Den instead.", VPR.JobID)]
-    ViperPvPPitComboStartHuntersFeature = 4122,
+    [CustomComboInfo("oGCD Combo", "Twinblood/Twinfang/Serpent combiner", VPR.JobID)]
+    OffGCD = 4107,
 
     #endregion
     // ====================================================================================
