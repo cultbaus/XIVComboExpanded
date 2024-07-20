@@ -820,7 +820,7 @@ public enum CustomComboPreset
     ReaperInfernalSliceCombo = 3901,
 
     [CustomComboInfo("Slice Combo", "Replace Slice with its combo chain.", RPR.JobID)]
-    ReaperSliceCombo = 3947,
+    ReaperSliceCombo = 3947,    
 
     [ConflictingCombos(ReaperSliceGallowsFeature)]
     [CustomComboInfo("Slice Gibbet Feature", "Replace Infernal Slice with Gibbet while Reaving or Enshrouded.", RPR.JobID)]
@@ -889,6 +889,9 @@ public enum CustomComboPreset
 
     [CustomComboInfo("Scythe Combo", "Replace Nightmare Scythe with its combo chain.", RPR.JobID)]
     ReaperScytheCombo = 3902,
+    
+    [CustomComboInfo("Spinning Scythe Combo", "Replace Spinning Scythe with its combo chain.", RPR.JobID)]
+    ReaperSpinningScytheCombo = 3948,
 
     [CustomComboInfo("Scythe Guillotine Feature", "Replace Nightmare Scythe with Guillotine while Reaving or Enshrouded.", RPR.JobID)]
     ReaperScytheGuillotineFeature = 3907,
@@ -970,6 +973,9 @@ public enum CustomComboPreset
 
     [CustomComboInfo("Harpe Perfectio Feature", "Replace Harpe with with Perfectio under Perfectio Parata.", RPR.JobID)]
     ReaperHarpePerfectioFeature = 3944,
+
+    [CustomComboInfo("Perfectio Soul Reaver Feature", "Replace Gibbet, Gallows, and Guillotine with Perfectio under Perfectio Parata.", RPR.JobID)]
+    ReaperPerfectioSoulReaverFeature = 3949,
 
     #endregion
     // ====================================================================================
