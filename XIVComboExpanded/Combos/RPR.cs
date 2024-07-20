@@ -189,7 +189,9 @@ internal class ReaperSlice : CustomCombo
                 }
                 return RPR.Slice;
             }
-        } else if (actionID == RPR.Slice) {
+        }
+        else if (actionID == RPR.Slice)
+        {
             if (IsEnabled(CustomComboPreset.ReaperSliceCombo))
             {
                 if (comboTime > 0)
@@ -267,6 +269,19 @@ internal class ReaperScythe : CustomCombo
             }
 
             if (IsEnabled(CustomComboPreset.ReaperScytheCombo))
+            {
+                if (comboTime > 0)
+                {
+                    if (lastComboMove == RPR.SpinningScythe && level >= RPR.Levels.NightmareScythe)
+                        return RPR.NightmareScythe;
+                }
+
+                return RPR.SpinningScythe;
+            }
+        }
+        else if (actionID == RPR.SpinningScythe)
+        {
+            if (IsEnabled(CustomComboPreset.ReaperSpinningScytheCombo))
             {
                 if (comboTime > 0)
                 {
@@ -476,6 +491,12 @@ internal class ReaperGibbetGallowsGuillotine : CustomCombo
     {
         if (actionID == RPR.Gibbet || actionID == RPR.Gallows)
         {
+            if (IsEnabled(CustomComboPreset.ReaperPerfectioSoulReaverFeature))
+            {
+                if (level >= RPR.Levels.Perfectio && HasEffect(RPR.Buffs.PerfectioParata))
+                    return RPR.Perfectio;
+            }
+            
             var gauge = GetJobGauge<RPRGauge>();
 
             if ((level >= RPR.Levels.SoulReaver && HasEffect(RPR.Buffs.SoulReaver)) ||
